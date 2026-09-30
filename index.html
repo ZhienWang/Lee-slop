@@ -47,7 +47,27 @@ p { margin: 0; }
 .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 
 /* header */
-header.top { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; }
+header.top { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; }
+/* chibi fighter */
+.chibi { position: relative; width: 150px; background: none; border: 0; padding: 0; cursor: pointer; justify-self: end; }
+.chibi .badge { position: absolute; inset: 14px 6px 4px; background: #f3f5f1; border: 1px solid var(--line); border-radius: 50%; }
+.chibi svg { position: relative; display: block; width: 100%; height: auto; overflow: visible; }
+.chibi .body { animation: bob 2.6s ease-in-out infinite; transform-origin: 80px 190px; }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+.chibi .kickleg { transform-origin: 92px 146px; transition: transform .18s cubic-bezier(.2,.8,.3,1.2); }
+.chibi .standleg { transform-origin: 70px 146px; }
+.chibi.kick .kickleg { transform: rotate(-78deg); }
+.chibi.kick .punch { transform: translate(8px, 2px); }
+.chibi .punch { transition: transform .15s; }
+.chibi.kick .body { animation-play-state: paused; }
+.chibi .say { position: absolute; top: -6px; left: -14px; background: var(--ink); color: var(--bg); font: 700 15px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; padding: 6px 9px; border-radius: 8px; opacity: 0; transform: translateY(4px) scale(.9); transition: opacity .15s, transform .15s; pointer-events: none; white-space: nowrap; }
+.chibi.kick .say { opacity: 1; transform: none; }
+.chibi:focus-visible { outline: 2px solid var(--seal); outline-offset: 4px; border-radius: 12px; }
+@media (max-width: 760px) {
+  header.top { grid-template-columns: auto 1fr; }
+  .chibi { grid-column: 1 / -1; grid-row: 1; justify-self: center; width: 130px; }
+}
+@media (prefers-reduced-motion: reduce) { .chibi .body { animation: none; } .chibi .kickleg, .chibi .punch { transition: none; } }
 .seal { width: 64px; height: 64px; background: var(--seal); color: #fff8f2; display: grid; place-items: center; font: 700 34px/1 serif; border-radius: 6px; transform: rotate(-4deg); }
 header.top h1 { font-size: clamp(34px, 7vw, 58px); text-transform: uppercase; }
 header.top h1 span { color: var(--seal); }
@@ -256,6 +276,57 @@ table.log td.num { font-family: var(--mono); font-variant-numeric: tabular-nums;
       <h1>Three days. <span>Fifteen years.</span></h1>
       <p class="sub">A long-range plan built on how Bruce Lee actually trained: full-body lifting three days a week, daily abs and forearms, roadwork, bag work and stretching. Fitted to your Monday–Wednesday–Friday gym schedule.</p>
     </div>
+
+    <button class="chibi" id="chibi" type="button" aria-label="Chibi martial artist. Tap to make him kick.">
+      <span class="badge" aria-hidden="true"></span>
+      <span class="say" id="chibiSay" aria-hidden="true">Hi-yah!</span>
+      <svg viewBox="0 0 160 200" aria-hidden="true">
+        <ellipse cx="80" cy="192" rx="42" ry="6" fill="#000" opacity=".12"/>
+        <g class="body">
+          <!-- standing leg -->
+          <g class="standleg">
+            <rect x="60" y="140" width="20" height="40" rx="8" fill="#15181a"/>
+            <ellipse cx="68" cy="184" rx="13" ry="6" fill="#15181a"/>
+          </g>
+          <!-- torso: black jacket, red sash -->
+          <rect x="54" y="98" width="52" height="48" rx="16" fill="#15181a"/>
+          <path d="M80 100 L80 140" stroke="#f4f1ea" stroke-width="2"/>
+          <g fill="#f4f1ea"><rect x="75" y="108" width="10" height="3" rx="1.5"/><rect x="75" y="117" width="10" height="3" rx="1.5"/><rect x="75" y="126" width="10" height="3" rx="1.5"/></g>
+          <rect x="54" y="133" width="52" height="9" rx="3" fill="#c23a22"/>
+          <path d="M98 141 l8 12 l-6 1 z" fill="#c23a22"/>
+          <!-- kicking leg (rotates at the hip) -->
+          <g class="kickleg">
+            <rect x="82" y="140" width="20" height="40" rx="8" fill="#15181a"/>
+            <ellipse cx="94" cy="184" rx="13" ry="6" fill="#15181a"/>
+          </g>
+          <!-- guard arm (left) -->
+          <path d="M60 110 Q44 118 50 104" stroke="#15181a" stroke-width="12" stroke-linecap="round" fill="none"/>
+          <circle cx="50" cy="100" r="8.5" fill="#f1c29b" stroke="#15181a" stroke-width="2"/>
+          <!-- punching arm (right) -->
+          <g class="punch">
+            <path d="M100 110 Q116 112 118 100" stroke="#15181a" stroke-width="12" stroke-linecap="round" fill="none"/>
+            <circle cx="120" cy="96" r="8.5" fill="#f1c29b" stroke="#15181a" stroke-width="2"/>
+          </g>
+          <!-- head -->
+          <rect x="72" y="88" width="16" height="14" rx="4" fill="#e5b08a"/>
+          <circle cx="80" cy="60" r="38" fill="#f1c29b"/>
+          <!-- hair: short, side-parted -->
+          <path d="M42 64 C38 30 58 18 82 19 C106 19 124 34 119 66 C114 52 108 44 98 40 C92 48 78 50 64 46 C56 50 48 56 42 64 Z" fill="#15181a"/>
+          <path d="M42 64 L44 78 L48 66 Z M119 66 L116 78 L112 66 Z" fill="#15181a"/>
+          <!-- determined brows -->
+          <path d="M56 58 L72 62" stroke="#15181a" stroke-width="4" stroke-linecap="round"/>
+          <path d="M104 58 L88 62" stroke="#15181a" stroke-width="4" stroke-linecap="round"/>
+          <!-- eyes -->
+          <ellipse cx="65" cy="71" rx="6" ry="7.5" fill="#15181a"/>
+          <ellipse cx="95" cy="71" rx="6" ry="7.5" fill="#15181a"/>
+          <circle cx="67" cy="68" r="2.2" fill="#fff"/><circle cx="97" cy="68" r="2.2" fill="#fff"/>
+          <!-- blush + mouth -->
+          <ellipse cx="54" cy="82" rx="6" ry="3.5" fill="#e98a7a" opacity=".55"/>
+          <ellipse cx="106" cy="82" rx="6" ry="3.5" fill="#e98a7a" opacity=".55"/>
+          <path d="M74 86 Q80 83 86 86" stroke="#7a3b2e" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        </g>
+      </svg>
+    </button>
   </header>
 
   <nav class="tabs" role="tablist">
@@ -1192,6 +1263,15 @@ $("qNext").addEventListener("click", () => { showQuote(qi + 1); startQuotes(); }
 $("qPrev").addEventListener("click", () => { showQuote(qi - 1); startQuotes(); });
 $("qText").textContent = QUOTES[qi][0];
 startQuotes();
+
+/* Chibi fighter: tap to kick */
+const CHIBI_SAYS = ["Hi-yah!", "Wa-tah!", "Be water!", "Again!", "Kiai!"];
+let chibiN = 0;
+$("chibi").addEventListener("click", () => {
+  const c = $("chibi"); if (c.classList.contains("kick")) return;
+  $("chibiSay").textContent = CHIBI_SAYS[chibiN++ % CHIBI_SAYS.length];
+  c.classList.add("kick"); setTimeout(() => c.classList.remove("kick"), 650);
+});
 
 /* Boot */
 slider.value = store.get("lee.year", 5);
