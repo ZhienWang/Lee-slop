@@ -1,0 +1,1205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A Bruce Lee–inspired 15-year training plan for three gym days a week.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Lee Method Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a training ledger. Compact header, tab strip, one working panel at a time. Ink on bamboo-grey paper, one seal-red accent, jade for "done". */
+:root {
+  --bg: #eceee9;
+  --surface: #f8f9f6;
+  --ink: #16201c;
+  --muted: #58635d;
+  --line: #d3d8d1;
+  --seal: #b8341e;
+  --jade: #2e6c5b;
+  --jade-soft: #dbe9e3;
+  --seal-soft: #f3dfd9;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101613; --surface: #17201c; --ink: #e6ebe7; --muted: #99a59e; --line: #2a3530;
+    --seal: #e2563c; --jade: #62b59c; --jade-soft: #1c3129; --seal-soft: #3a211b; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101613; --surface: #17201c; --ink: #e6ebe7; --muted: #99a59e; --line: #2a3530;
+  --seal: #e2563c; --jade: #62b59c; --jade-soft: #1c3129; --seal-soft: #3a211b; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body); }
+.wrap { max-width: 980px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1; margin: 0; text-wrap: balance; letter-spacing: .01em; }
+p { margin: 0; }
+.label { font: 600 11px/1.2 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* header */
+header.top { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; }
+.seal { width: 64px; height: 64px; background: var(--seal); color: #fff8f2; display: grid; place-items: center; font: 700 34px/1 serif; border-radius: 6px; transform: rotate(-4deg); }
+header.top h1 { font-size: clamp(34px, 7vw, 58px); text-transform: uppercase; }
+header.top h1 span { color: var(--seal); }
+.sub { color: var(--muted); max-width: 62ch; margin-top: 8px; }
+
+/* tabs */
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 28px; border-bottom: 2px solid var(--ink); }
+nav.tabs button { font: 700 17px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; background: none; border: 0; color: var(--muted); padding: 12px 16px 10px; cursor: pointer; border-radius: 6px 6px 0 0; white-space: nowrap; }
+nav.tabs button[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+@media (max-width: 760px) {
+  nav.tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 0; gap: 6px; }
+  nav.tabs > button { border: 1.5px solid var(--line); border-radius: 6px; padding: 10px 4px; font-size: 14px; letter-spacing: .03em; min-width: 0; white-space: normal; line-height: 1.1; }
+  nav.tabs > button[aria-selected="true"] { border-color: var(--ink); }
+}
+nav.tabs button:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--seal); outline-offset: 2px; }
+section.panel { padding-top: 26px; display: grid; gap: 26px; }
+
+/* roadmap */
+.yearbox { display: grid; gap: 10px; }
+.yearhead { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.yearnum { font: 900 clamp(64px, 14vw, 120px)/.85 var(--display); color: var(--seal); }
+.yearhead .ph { font: 700 28px/1 var(--display); text-transform: uppercase; }
+input[type=range] { width: 100%; accent-color: var(--seal); height: 28px; }
+.ticks { display: flex; justify-content: space-between; font: 500 12px var(--mono); color: var(--muted); padding: 0 6px; }
+.ticks button { background: none; border: 0; font: inherit; color: inherit; cursor: pointer; padding: 4px 2px; }
+.ticks button.on { color: var(--seal); font-weight: 700; }
+.grid2 { display: grid; grid-template-columns: 1.3fr 1fr; gap: 26px; }
+.grid2 > * { min-width: 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; align-content: start; }
+ul.clean { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+ul.clean li { padding-left: 18px; position: relative; }
+ul.clean li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 2px; background: var(--seal); }
+table.targets { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.targets th, table.targets td { text-align: left; padding: 8px 0; border-bottom: 1px solid var(--line); }
+table.targets td:last-child { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+table.targets th { font-weight: 500; color: var(--muted); }
+.fine { font-size: 12.5px; color: var(--muted); }
+
+.phasebar { display: grid; grid-template-columns: 1fr 2fr 2fr 5fr 5fr; gap: 3px; }
+.phasebar div { background: var(--line); border-radius: 3px; padding: 8px 8px; font: 600 11px/1.2 var(--body); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); cursor: pointer; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.phasebar div.on { background: var(--ink); color: var(--bg); }
+
+/* week */
+.dayrow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.day { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 8px; min-height: 124px; display: grid; align-content: start; gap: 6px; min-width: 0; }
+.day .dn { font: 700 18px/1 var(--display); text-transform: uppercase; }
+.day.gym { border-color: var(--ink); border-width: 2px; }
+.day .tag { font-size: 12px; line-height: 1.3; }
+.pill { display: inline-block; font: 600 10.5px/1 var(--body); letter-spacing: .08em; text-transform: uppercase; padding: 4px 6px; border-radius: 4px; }
+.pill.gym { background: var(--ink); color: var(--bg); }
+.pill.home { background: var(--jade-soft); color: var(--jade); }
+.pill.rest { background: var(--line); color: var(--muted); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { font: 600 13px var(--body); border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--seal); border-color: var(--seal); color: #fff8f2; }
+.switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500; }
+.switch input { width: 18px; height: 18px; accent-color: var(--jade); }
+
+/* session */
+.sessbar { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; }
+select { font: 500 14px var(--body); padding: 8px 10px; border-radius: 6px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); }
+.field { display: grid; gap: 6px; }
+.block { display: grid; gap: 8px; }
+.block h3 { font-size: 22px; text-transform: uppercase; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.block h3 small { font: 500 12px var(--mono); color: var(--muted); letter-spacing: 0; text-transform: none; }
+.ex { display: grid; grid-template-columns: 22px 1fr auto; gap: 4px 12px; align-items: start; padding: 11px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+.ex label.exmain { cursor: pointer; min-width: 0; }
+.ex details.why { grid-column: 2 / -1; min-width: 0; }
+.ex details.why summary { cursor: pointer; font: 600 12px/1.2 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--seal); padding: 6px 0 2px; list-style: none; display: inline-flex; gap: 6px; align-items: center; }
+.ex details.why summary::-webkit-details-marker { display: none; }
+.ex details.why summary::before { content: "+"; font: 700 15px/1 var(--mono); width: 12px; }
+.ex details.why[open] summary::before { content: "−"; }
+.ex .whybody { display: grid; gap: 10px; padding: 10px 0 4px; font-size: 14px; max-width: 68ch; }
+.ex .whybody ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.ex .whybody .k { font: 600 11px/1.2 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
+.ex .whybody .warn { border-left: 3px solid var(--seal); padding-left: 10px; }
+.ex input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--jade); }
+.ex .nm { font-weight: 600; }
+.ex .nt { font-size: 13px; color: var(--muted); }
+.ex .rx { font: 500 13px var(--mono); white-space: nowrap; color: var(--ink); text-align: right; }
+.ex .tm { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; margin-top: 6px; }
+.ex .tm span { font: 600 11px/1 var(--body); letter-spacing: .04em; padding: 4px 6px; border-radius: 4px; white-space: nowrap; }
+.ex .tm .t { background: var(--line); color: var(--ink); }
+.ex .tm .r { background: var(--jade-soft); color: var(--jade); }
+.tsum { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+.tsum div { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; min-width: 0; }
+.tsum b { font: 900 28px/1 var(--display); font-variant-numeric: tabular-nums; }
+.tsum div:first-child { border: 2px solid var(--ink); }
+.tsum .fine { grid-column: 1 / -1; background: none; border: 0; padding: 0; }
+.ex.done { background: var(--jade-soft); border-color: transparent; }
+.ex.done .nm { text-decoration: line-through; text-decoration-color: var(--jade); }
+.progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--jade); width: 0; transition: width .25s; }
+.btn { font: 700 15px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; background: var(--ink); color: var(--bg); border: 0; border-radius: 6px; padding: 12px 18px; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn.red { background: var(--seal); color: #fff8f2; }
+.note { border-left: 3px solid var(--seal); padding: 4px 0 4px 14px; font-size: 14px; color: var(--muted); max-width: 70ch; }
+
+/* timer */
+.timer { display: grid; gap: 18px; justify-items: center; text-align: center; padding: 30px 20px; }
+.clock { font: 900 clamp(90px, 26vw, 190px)/.9 var(--display); font-variant-numeric: tabular-nums; }
+.clock.rest { color: var(--jade); }
+.clock.work { color: var(--seal); }
+.tstate { font: 700 22px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; }
+.tset { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.tset input { width: 84px; font: 500 15px var(--mono); padding: 8px; border-radius: 6px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); }
+.presets { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+
+footer { margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--line); }
+
+/* 24 Hour Fitness tab */
+.gx .eq { display: grid; gap: 6px; font-size: 14px; margin-top: 4px; }
+.gx .zone { display: inline-block; font: 600 10.5px/1 var(--body); letter-spacing: .08em; text-transform: uppercase; padding: 4px 7px; border-radius: 4px; background: var(--seal-soft); color: var(--seal); margin-right: 6px; vertical-align: 1px; }
+.gx .use { font-weight: 600; }
+.gx .orig { font-size: 12.5px; color: var(--muted); }
+.gx .alt { font-size: 13.5px; color: var(--muted); }
+.gx .alt b { color: var(--ink); font-weight: 600; }
+
+/* quote banner */
+.quote { display: grid; grid-template-columns: 1fr auto; gap: 14px 20px; align-items: center; background: var(--ink); color: var(--bg); border-radius: 8px; padding: 18px 22px; margin-bottom: 26px; }
+.quote blockquote { margin: 0; min-width: 0; }
+.quote .qt { font: 700 clamp(20px, 3.4vw, 28px)/1.15 var(--display); letter-spacing: .01em; text-wrap: balance; transition: opacity .3s; }
+.quote .qt::before { content: "“"; color: var(--seal); margin-right: 2px; }
+.quote .qt::after { content: "”"; color: var(--seal); margin-left: 2px; }
+.quote cite { display: block; margin-top: 8px; font: 600 11px/1.2 var(--body); letter-spacing: .12em; text-transform: uppercase; font-style: normal; opacity: .7; }
+.quote .qnav { display: flex; gap: 6px; }
+.quote .qnav button { background: transparent; color: var(--bg); border: 1.5px solid color-mix(in srgb, var(--bg) 35%, transparent); border-radius: 6px; width: 38px; height: 38px; font: 700 18px/1 var(--body); cursor: pointer; }
+.quote .qnav button:hover { border-color: var(--bg); }
+.quote.fade .qt { opacity: 0; }
+@media (max-width: 560px) { .quote { grid-template-columns: 1fr; } }
+
+/* progress */
+.sync { font-size: 12.5px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.sync::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.sync.cloud::before { background: var(--jade); }
+.sync.local::before { background: var(--seal); }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.stat .v { font: 900 36px/1 var(--display); font-variant-numeric: tabular-nums; }
+.stat .v small { font: 600 14px var(--body); color: var(--muted); }
+.stat .s { font-size: 12.5px; color: var(--muted); }
+.stat input[type=date] { font: 500 14px var(--body); padding: 6px 8px; border-radius: 6px; border: 1.5px solid var(--line); background: var(--bg); color: var(--ink); max-width: 100%; }
+.heat { display: grid; grid-template-columns: repeat(26, 1fr); gap: 3px; }
+.heat i { aspect-ratio: 1; border-radius: 3px; background: var(--line); max-width: 100%; }
+.heat i[data-n="1"] { background: color-mix(in srgb, var(--jade) 35%, var(--line)); }
+.heat i[data-n="2"] { background: color-mix(in srgb, var(--jade) 65%, var(--line)); }
+.heat i[data-n="3"] { background: var(--jade); }
+.heat i.now { outline: 2px solid var(--ink); outline-offset: 1px; }
+.heatlegend { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 12px; color: var(--muted); }
+.heatlegend .key { display: inline-flex; gap: 4px; align-items: center; }
+.heatlegend .key i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; background: var(--line); }
+.form { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+.form input, .form select { width: 100%; font: 500 14px var(--body); padding: 8px 10px; border-radius: 6px; border: 1.5px solid var(--line); background: var(--bg); color: var(--ink); }
+.form .wide { grid-column: 1 / -1; }
+.chartwrap { position: relative; }
+.chartwrap svg { width: 100%; height: auto; display: block; }
+.chartwrap svg text { fill: var(--muted); font: 500 11px var(--mono); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font: 500 12px/1.35 var(--body); padding: 6px 9px; border-radius: 5px; white-space: nowrap; transform: translate(-50%, -115%); }
+.tablewrap { overflow-x: auto; min-width: 0; }
+.card > *, section.panel > * { min-width: 0; }
+table.log { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.log th, table.log td { text-align: left; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+table.log th { font-weight: 600; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+table.log td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.linkbtn { background: none; border: 0; color: var(--muted); font: 500 12.5px var(--body); cursor: pointer; padding: 2px 4px; text-decoration: underline; }
+.linkbtn.sure { color: var(--seal); font-weight: 600; }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 6px; font-weight: 500; font-size: 14px; z-index: 5; max-width: calc(100% - 32px); }
+.logbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; padding: 16px; background: var(--surface); border: 2px solid var(--ink); border-radius: 8px; }
+.logbar input { font: 500 14px var(--body); padding: 8px 10px; border-radius: 6px; border: 1.5px solid var(--line); background: var(--bg); color: var(--ink); }
+.logbar .grow { flex: 1 1 200px; min-width: 0; }
+.logbar .grow input { width: 100%; }
+.here { font-size: 13px; color: var(--seal); font-weight: 600; }
+
+@media (max-width: 760px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  .heat { grid-template-columns: repeat(13, 1fr); }
+  .grid2 { grid-template-columns: 1fr; }
+  .dayrow { grid-template-columns: 1fr; }
+  .day { min-height: 0; grid-template-columns: 56px 1fr; align-items: start; }
+  .day .dn { grid-row: span 2; }
+  .phasebar div { font-size: 9.5px; padding: 7px 4px; }
+  .ex { grid-template-columns: 22px 1fr; }
+  .ex .rx { grid-column: 2; text-align: left; white-space: normal; }
+  .ex details.why { grid-column: 1 / -1; }
+  .ex .tm { justify-content: flex-start; }
+  .tsum b { font-size: 22px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <section class="quote" id="quote" aria-label="Bruce Lee quote">
+    <blockquote>
+      <div class="qt" id="qText" aria-live="polite">Absorb what is useful, discard what is useless, add what is specifically your own.</div>
+      <cite id="qCite">Bruce Lee</cite>
+    </blockquote>
+    <div class="qnav">
+      <button type="button" id="qPrev" aria-label="Previous quote">‹</button>
+      <button type="button" id="qNext" aria-label="Next quote">›</button>
+    </div>
+  </section>
+  <header class="top">
+    <div class="seal" aria-hidden="true">水</div>
+    <div>
+      <h1>Three days. <span>Fifteen years.</span></h1>
+      <p class="sub">A long-range plan built on how Bruce Lee actually trained: full-body lifting three days a week, daily abs and forearms, roadwork, bag work and stretching. Fitted to your Monday–Wednesday–Friday gym schedule.</p>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="t-roadmap" aria-selected="true" data-tab="roadmap">Roadmap</button>
+    <button role="tab" id="t-week" aria-selected="false" data-tab="week">My week</button>
+    <button role="tab" id="t-session" aria-selected="false" data-tab="session">Today's session</button>
+    <button role="tab" id="t-gym" aria-selected="false" data-tab="gym">24 Hour Fitness</button>
+    <button role="tab" id="t-progress" aria-selected="false" data-tab="progress">Progress</button>
+    <button role="tab" id="t-timer" aria-selected="false" data-tab="timer">Round timer</button>
+  </nav>
+
+  <!-- ROADMAP -->
+  <section class="panel" id="p-roadmap" role="tabpanel">
+    <div class="yearbox">
+      <div class="yearhead">
+        <div class="yearnum mono" id="yearNum">Y5</div>
+        <div>
+          <div class="label" id="phRange">Years 3–5</div>
+          <div class="ph" id="phName">Sharpen</div>
+        </div>
+      </div>
+      <input type="range" id="yearSlider" min="0" max="15" step="1" value="5" aria-label="Years of training">
+      <div class="ticks" id="ticks"></div>
+      <div class="here" id="hereNote" hidden></div>
+      <div class="phasebar" id="phasebar"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="label">What this phase is for</div>
+        <p id="phFocus"></p>
+        <div class="label" style="margin-top:6px">What you can expect by now</div>
+        <ul class="clean" id="phResults"></ul>
+      </div>
+      <div class="card">
+        <div class="label">Benchmark targets</div>
+        <table class="targets"><tbody id="phTargets"></tbody></table>
+        <p class="fine">Stretch goals for a healthy adult who trains consistently. Your age, starting point, sleep and diet will move these numbers a lot. Test yourself every 3 months.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="label">How the three gym days change in this phase</div>
+      <div class="grid2" id="phDays" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px"></div>
+    </div>
+
+    <p class="note">Lee himself trained almost every day, often twice. Three focused gym days will get you most of the strength and conditioning. The speed, skill and flexibility he was known for come from short daily practice, so the plan includes optional 15-minute home sessions. Turn them on in <b>My week</b>.</p>
+  </section>
+
+  <!-- WEEK -->
+  <section class="panel" id="p-week" role="tabpanel" hidden>
+    <div class="controls">
+      <div class="field">
+        <span class="label">Your gym days (pick 3)</span>
+        <div class="chips" id="dayChips"></div>
+      </div>
+      <label class="switch"><input type="checkbox" id="homeToggle" checked> Add 15-min home sessions on off days</label>
+    </div>
+    <div class="dayrow" id="dayRow"></div>
+    <div class="grid2" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+      <div class="card">
+        <div class="label">Gym session shape · about 1–2 hours, longer in the heavy phases</div>
+        <ul class="clean">
+          <li><b>Warm-up, about 12 min.</b> Jump rope, then leg swings and arm circles. Never skip this. Lee badly injured his back in 1970 doing heavy good mornings without warming up.</li>
+          <li><b>Lee's six lifts, 25–50 min.</b> His 1965 general program: clean &amp; press, squat, pullover, bench press, good morning, barbell curl.</li>
+          <li><b>Skill block, 15–40 min.</b> Rotates: striking (A), conditioning (B), kicks and flexibility (C).</li>
+          <li><b>Abs &amp; forearms, 8–20 min.</b> Lee trained both nearly every day.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="label">Home session · 15 min, no equipment</div>
+        <ul class="clean">
+          <li>Leg raises, sit-up twists, waist twists: 1 round each</li>
+          <li>Shadowboxing from a fighting stance: 3 × 2 min</li>
+          <li>Hamstring, hip and groin stretches: 5 min</li>
+          <li>Grip: squeeze a tennis ball or towel, 2 × 30 s each hand</li>
+        </ul>
+        <p class="fine">Keep one day fully off. Recovery is when you actually get stronger.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION -->
+  <section class="panel" id="p-session" role="tabpanel" hidden>
+    <div class="sessbar">
+      <div class="field">
+        <label class="label" for="selPhase">Phase</label>
+        <select id="selPhase"></select>
+      </div>
+      <div class="field">
+        <label class="label" for="selDay">Session</label>
+        <select id="selDay">
+          <option value="A">Day A · Strength + Striking</option>
+          <option value="B">Day B · Strength + Conditioning</option>
+          <option value="C">Day C · Strength + Kicks &amp; Flexibility</option>
+        </select>
+      </div>
+      <button class="btn ghost" id="clearBtn" type="button">Clear checks</button>
+      <button class="btn ghost" id="expandBtn" type="button">Open all explanations</button>
+    </div>
+    <div class="field">
+      <div class="tsum" id="sumS"></div>
+      <div style="display:flex;justify-content:space-between" class="label"><span>Progress</span><span id="progTxt" class="mono">0 / 0</span></div>
+      <div class="progress"><i id="progBar"></i></div>
+    </div>
+    <div id="sessionBody" style="display:grid;gap:22px"></div>
+    <div class="logbar">
+      <label class="field"><span class="label">Date</span><input type="date" id="sessDate"></label>
+      <label class="field grow"><span class="label">Note (optional)</span><input type="text" id="sessNote" maxlength="200" placeholder="e.g. squat 135 lb, felt strong"></label>
+      <button class="btn red" id="logSessBtn" type="button">Log this session</button>
+    </div>
+  </section>
+
+  <!-- 24 HOUR FITNESS -->
+  <section class="panel" id="p-gym" role="tabpanel" hidden>
+    <div style="display:grid;gap:8px">
+      <h2 style="font-size:32px;text-transform:uppercase">Your session at 24 Hour Fitness</h2>
+      <p class="sub" style="margin:0">The same workout, matched to equipment you'll find at a typical 24 Hour Fitness club. Each exercise shows where to go, what to use, how to set it up, and a backup if that equipment is taken or your club doesn't have it.</p>
+    </div>
+    <div class="grid2" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+      <div class="card"><div class="label">Usually at every club</div><p style="font-size:14px">Dumbbells, benches, bench-press stations, squat racks, Smith machines, cable towers, strength machines, treadmills, bikes, ellipticals, back-extension benches, pull-up / knee-raise stations</p></div>
+      <div class="card"><div class="label">At many clubs</div><p style="font-size:14px">Turf zone, rowers, plyo boxes, medicine balls, battle ropes, TRX straps, BOSU balls, EZ-curl bars</p></div>
+      <div class="card"><div class="label">Only some clubs</div><p style="font-size:14px">Heavy bags, trap bars, speed bags. Ask the front desk or check your club's page.</p></div>
+      <div class="card"><div class="label">Bring in your gym bag</div><p style="font-size:14px">Jump rope, hand wraps and bag gloves, a small towel. A wrist roller is optional (cheap online).</p></div>
+    </div>
+    <div class="sessbar">
+      <div class="field"><label class="label" for="gPhase">Phase</label><select id="gPhase"></select></div>
+      <div class="field"><label class="label" for="gDay">Session</label>
+        <select id="gDay">
+          <option value="A">Day A · Strength + Striking</option>
+          <option value="B">Day B · Strength + Conditioning</option>
+          <option value="C">Day C · Strength + Kicks &amp; Flexibility</option>
+        </select>
+      </div>
+      <label class="switch"><input type="checkbox" id="gHasBag"> My club has a heavy bag</label>
+    </div>
+    <div class="field">
+      <div class="tsum" id="sumG"></div>
+      <div style="display:flex;justify-content:space-between" class="label"><span>Progress · shared with Today's session</span><span id="gProgTxt" class="mono">0 / 0</span></div>
+      <div class="progress"><i id="gProgBar"></i></div>
+    </div>
+    <div id="gymBody" style="display:grid;gap:22px"></div>
+    <div class="logbar">
+      <label class="field"><span class="label">Date</span><input type="date" id="gDate"></label>
+      <label class="field grow"><span class="label">Note (optional)</span><input type="text" id="gNote" maxlength="200" placeholder="e.g. Smith squat 115 lb, cable punches"></label>
+      <button class="btn red" id="gLogBtn" type="button">Log this session</button>
+    </div>
+    <p class="fine">Equipment differs from club to club and changes over time, so treat this as a guide. The backups are there for when something's missing or busy.</p>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="panel" id="p-progress" role="tabpanel" hidden>
+    <div class="sync" id="syncNote">Connecting…</div>
+    <div class="stats">
+      <div class="stat">
+        <label class="label" for="startDate">Training since</label>
+        <input type="date" id="startDate">
+        <span class="s" id="yearsIn">Set the day you started</span>
+      </div>
+      <div class="stat"><span class="label">Current phase</span><span class="v" id="stPhase">—</span><span class="s" id="stPhaseSub">Based on your start date</span></div>
+      <div class="stat"><span class="label">This week</span><span class="v mono" id="stWeek">0<small> / 3</small></span><span class="s" id="stWeekSub">Gym sessions logged</span></div>
+      <div class="stat"><span class="label">Total sessions</span><span class="v mono" id="stTotal">0</span><span class="s" id="stStreak">Week streak: 0</span></div>
+    </div>
+
+    <div class="card">
+      <div class="label">Consistency · last 26 weeks</div>
+      <div class="heat" id="heat" role="img" aria-label="Sessions per week for the last 26 weeks"></div>
+      <div class="heatlegend">
+        <span id="heatFrom"></span>
+        <span class="key">0 <i></i><i style="background:color-mix(in srgb,var(--jade) 35%,var(--line))"></i><i style="background:color-mix(in srgb,var(--jade) 65%,var(--line))"></i><i style="background:var(--jade)"></i> 3+ sessions</span>
+        <span>This week</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
+        <div class="label">Benchmark tests</div>
+        <div class="chips" id="metricChips"></div>
+      </div>
+      <div class="chartwrap" id="chartWrap"><svg id="chart" viewBox="0 0 640 240" role="img" aria-label="Benchmark chart"></svg><div class="tip" id="tip" hidden></div></div>
+      <p class="fine" id="chartNote"></p>
+    </div>
+
+    <div class="grid2" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+      <form class="card" id="testForm">
+        <div class="label">Record a test · every 3 months</div>
+        <div class="form">
+          <label class="field"><span class="label">Date</span><input type="date" id="tDate" required></label>
+          <label class="field"><span class="label">Bodyweight (lb)</span><input type="number" id="tBw" min="50" max="500" step="0.1" inputmode="decimal"></label>
+          <label class="field"><span class="label">Push-ups</span><input type="number" id="tPush" min="0" max="500" inputmode="numeric"></label>
+          <label class="field"><span class="label">Pull-ups</span><input type="number" id="tPull" min="0" max="200" inputmode="numeric"></label>
+          <label class="field"><span class="label">Plank (sec)</span><input type="number" id="tPlank" min="0" max="3600" inputmode="numeric"></label>
+          <label class="field"><span class="label">2-mile run (mm:ss)</span><input type="text" id="tRun" placeholder="18:30" pattern="\d{1,2}:\d{2}"></label>
+          <label class="field"><span class="label">Squat (lb, heaviest 5)</span><input type="number" id="tSquat" min="0" max="1500" step="2.5" inputmode="decimal"></label>
+        </div>
+        <p class="fine">Fill in whatever you tested. Leave the rest blank.</p>
+        <div><button class="btn" type="submit">Save test</button></div>
+      </form>
+      <div class="card">
+        <div class="label">Recent sessions</div>
+        <div class="tablewrap"><table class="log"><thead><tr><th>Date</th><th>Session</th><th>Done</th><th>Note</th><th></th></tr></thead><tbody id="histBody"></tbody></table></div>
+        <p class="fine" id="histEmpty">No sessions yet. Finish a workout in <b>Today's session</b> and tap <b>Log this session</b>.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="label">All tests</div>
+      <div class="tablewrap"><table class="log"><thead><tr><th>Date</th><th>Weight</th><th>Push-ups</th><th>Pull-ups</th><th>Plank</th><th>2-mile</th><th>Squat</th><th></th></tr></thead><tbody id="testBody"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- TIMER -->
+  <section class="panel" id="p-timer" role="tabpanel" hidden>
+    <div class="card timer">
+      <div class="tstate" id="tState">Ready</div>
+      <div class="clock mono" id="tClock">3:00</div>
+      <div class="label mono" id="tRound">Round 1 of 4</div>
+      <div class="presets">
+        <button class="chip" type="button" data-p="180,60,4">Bag 4 × 3:00</button>
+        <button class="chip" type="button" data-p="120,60,3">Shadowbox 3 × 2:00</button>
+        <button class="chip" type="button" data-p="180,60,3">Jump rope 3 × 3:00</button>
+        <button class="chip" type="button" data-p="30,30,8">Speed bursts 8 × 0:30</button>
+      </div>
+      <div class="tset">
+        <label class="field"><span class="label">Work (s)</span><input id="tWork" type="number" min="5" value="180"></label>
+        <label class="field"><span class="label">Rest (s)</span><input id="tRest" type="number" min="0" value="60"></label>
+        <label class="field"><span class="label">Rounds</span><input id="tRounds" type="number" min="1" value="4"></label>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        <button class="btn red" id="tStart" type="button">Start</button>
+        <button class="btn ghost" id="tReset" type="button">Reset</button>
+      </div>
+      <p class="fine">A bell sounds at the start of each round and each rest.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p class="fine">Built from Lee's published training notes (collected in John Little's <i>The Art of Expressing the Human Body</i>). This is a general plan, not medical advice. Check with a doctor before starting if you have heart, joint or back problems, and learn the barbell lifts with light weight or a coach first. Striking skill grows fastest with a real instructor and partners, so consider adding a martial arts class once you're past year one.</p>
+  </footer>
+</div>
+
+<script>
+const PHASES = [
+  { id: 1, name: "Foundation", from: 0, to: 1,
+    focus: "Build the habit and learn the movements. Light weights, perfect form, and enough running and rope work that a 75-minute session stops feeling hard.",
+    results: ["Training three times a week feels normal, not forced", "Big early strength jumps, which are typical for beginners", "Can run 2 miles without stopping", "Solid fighting stance, straight lead punch and basic footwork", "Noticeably looser hamstrings and hips"],
+    targets: [["Push-ups, one set", "25"], ["Pull-ups", "3–5"], ["Plank", "1:00"], ["2-mile run", "≈ 20:00"], ["Squat", "≈ 0.75 × bodyweight"]],
+    lift: "2 × 10–12, light, stop 3 reps short of failure",
+    blocks: {
+      A: [["Shadowboxing", "Stance, straight lead, jab-cross, footwork", "3 × 2 min"], ["Heavy bag, light", "Relaxed, accurate punches only", "2 × 2 min"]],
+      B: [["Easy run", "Conversational pace; walk breaks are fine", "20 min"], ["Jump rope", "Two-foot bounce, then alternating", "3 × 1 min"]],
+      C: [["Slow kicks", "Front, side and roundhouse, knee height, hold at the end", "3 × 8 each leg"], ["Stretching", "Hamstrings, hips, groin; 30 s holds", "15 min"]]
+    },
+    finisher: [["Leg raises", "Lying flat, lower back pressed down", "2 × 12"], ["Sit-up twists", "Elbow toward opposite knee", "2 × 12"], ["Wrist curls", "Light dumbbell or barbell", "2 × 15"]]
+  },
+  { id: 2, name: "Build", from: 1, to: 3,
+    focus: "Add weight steadily and build the engine. This is where the physique shows up: more muscle, less fat, if you eat enough protein and don't drown it in junk food.",
+    results: ["Visible muscle definition in arms, shoulders and abs (diet decides this more than training)", "Bench and squat roughly 50% stronger than your year-one numbers", "Can go 4 hard rounds on the heavy bag", "Kicks reach waist to chest height", "Resting heart rate noticeably lower"],
+    targets: [["Push-ups, one set", "40"], ["Pull-ups", "8–10"], ["Plank", "2:00"], ["2-mile run", "≈ 16:30"], ["Squat", "≈ 1.25 × bodyweight"]],
+    lift: "3 × 8 (bench 3 × 6), add weight when all sets feel clean",
+    blocks: {
+      A: [["Heavy bag rounds", "Combinations, move between flurries", "4 × 3 min"], ["Speed bag or focus mitts", "Rhythm and hand speed", "3 × 2 min"]],
+      B: [["Roadwork", "Lee's staple; vary the pace, finish strong", "2 miles"], ["Jump rope", "Fast feet, cross-overs", "3 × 3 min"]],
+      C: [["Kicks on the bag", "Side kick and roundhouse, full hip turn", "3 × 10 each leg"], ["Stretching", "Add leg-on-bar stretches, 45 s holds", "15 min"]]
+    },
+    finisher: [["Waist twists", "Broomstick across shoulders", "2 × 40"], ["Leg raises", "Slow down, 3 s on the way down", "3 × 20"], ["Wrist roller", "Up and down is one trip", "3 trips"], ["Reverse curls", "Barbell, palms down", "3 × 12"]]
+  },
+  { id: 3, name: "Sharpen", from: 3, to: 5,
+    focus: "Turn strength into speed and power. Heavier, lower-rep lifting plus explosive work, intervals and isometric holds, the tools Lee used to make his punches fast and his kicks hit hard.",
+    results: ["Athletic by almost any standard: strong, lean, well-conditioned", "Explosive hips: fast kicks and a real jump", "Can hold high kicks with control", "Hard bag work for 5 rounds without fading", "A body that looks trained without trying"],
+    targets: [["Push-ups, one set", "50+"], ["Pull-ups", "12–15"], ["Hanging leg raise", "15 strict"], ["2-mile run", "≈ 15:00"], ["Squat", "≈ 1.5 × bodyweight"]],
+    lift: "3 × 5 heavy; clean & press 5 × 3 fast",
+    blocks: {
+      A: [["Heavy bag rounds", "Fast, snapping combinations; reset stance each time", "5 × 3 min"], ["Speed bag", "Stay relaxed at full speed", "3 × 2 min"]],
+      B: [["Intervals", "Hard 400 m, easy 400 m (or bike)", "6 rounds"], ["Lee-style circuit", "Squat jumps, push-ups, pull-ups, bag sprint 30 s each", "3 rounds"]],
+      C: [["Plyometrics", "Box jumps, broad jumps", "4 × 5"], ["Isometric holds in the rack", "Push or pull against pins, max effort", "6 × 8 s"], ["Kicks and stretching", "Head-height kicks with control", "15 min"]]
+    },
+    finisher: [["Dragon flag progression", "Tuck, then half, then full", "3 × 5"], ["Hanging leg raises", "No swing", "3 × 10"], ["Wrist roller, heavier", "", "3 trips"]]
+  },
+  { id: 4, name: "Mastery", from: 5, to: 10,
+    focus: "Keep what you built and put the effort into skill. Alternate heavy and light weeks, train with people who can hit back, and refine technique. Lee called this stripping away the non-essential.",
+    results: ["Strength numbers hold steady or creep up; that's success here", "Fighting skill grows, especially with a class or sparring partners", "Very few injuries, because you train smarter, not only harder", "Body composition stays where you want it", "Training feels like part of who you are"],
+    targets: [["Push-ups, one set", "50+ (hold)"], ["Pull-ups", "12–15 (hold)"], ["Hanging leg raise", "15 (hold)"], ["3-mile run", "≈ 24:00"], ["Squat", "≈ 1.5 × bodyweight (hold)"]],
+    lift: "Heavy week 3 × 5, light week 2 × 10, alternate",
+    blocks: {
+      A: [["Partner drills or sparring", "Or a martial arts class that counts as this block", "5 × 3 min"], ["Heavy bag", "Work on your weakest combination", "3 × 3 min"]],
+      B: [["Roadwork", "Varied pace; hills if you have them", "3 miles"], ["Jump rope", "", "3 × 3 min"]],
+      C: [["Full kicking practice", "All kicks, both sides, on bag and in the air", "15 min"], ["Mobility and stretching", "Hips, spine, shoulders", "20 min"]]
+    },
+    finisher: [["Lee's ab circuit", "Waist twists, sit-up twists, leg raises, frog kicks", "1–2 rounds"], ["Forearms", "Wrist roller plus reverse curls", "10 min"]]
+  },
+  { id: 5, name: "Longevity", from: 10, to: 15,
+    focus: "Stay strong, mobile and fast for decades. Joint-friendly lift swaps, more mobility and easy aerobic work, and short speed bursts so you don't lose your quickness.",
+    results: ["Stronger and more mobile than most people 10–20 years younger", "Still hits the bag fast and kicks with control", "Healthy joints and back, thanks to smart swaps", "Resting heart rate and blood pressure in a good range", "A training practice you can keep into old age"],
+    targets: [["Push-ups, one set", "40+"], ["Pull-ups", "10+"], ["Plank", "2:00"], ["2-mile run or brisk bike", "Comfortably"], ["Touch toes, straight legs", "Yes"]],
+    lift: "2 × 8–10 moderate; trap-bar deadlift and dumbbell press instead of good morning and clean & press",
+    blocks: {
+      A: [["Heavy bag, technical", "Crisp technique over power", "4 × 2 min"], ["Speed bursts", "All-out hand speed", "8 × 20 s"]],
+      B: [["Easy aerobic", "Run, bike or row at a pace you could talk through", "30 min"], ["Surges", "Pick up the pace hard", "4 × 30 s"]],
+      C: [["Controlled kicks", "Slow, balanced, full range", "3 × 8 each leg"], ["Mobility and balance", "Single-leg work, long stretches", "25 min"]]
+    },
+    finisher: [["Plank + side planks", "", "3 × 45 s"], ["Leg raises", "", "2 × 15"], ["Grip holds", "Hang from bar or hold heavy dumbbells", "3 × 30 s"]]
+  }
+];
+
+const LIFTS = [
+  ["Clean & press", "Barbell from floor to overhead. Learn it light or use dumbbells at first."],
+  ["Squat", "Hips below knees if mobility allows"],
+  ["Pullover", "Lying across a bench, dumbbell or barbell, stretch the chest and lats"],
+  ["Bench press", "Use a spotter or safety pins"],
+  ["Good morning", "Light only. Hinge at the hips, flat back. Warm up first."],
+  ["Barbell curl", "Strict, no swinging"]
+];
+const LIFTS_P5 = { "Clean & press": ["Dumbbell press", "Seated or standing"], "Good morning": ["Trap-bar deadlift", "Easier on the lower back"] };
+
+const phaseForYear = y => y <= 1 ? PHASES[0] : y <= 3 ? PHASES[1] : y <= 5 ? PHASES[2] : y <= 10 ? PHASES[3] : PHASES[4];
+const $ = id => document.getElementById(id);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+/* Tabs */
+const tabs = [...document.querySelectorAll("nav.tabs button")];
+function showTab(name) {
+  tabs.forEach(b => b.setAttribute("aria-selected", b.dataset.tab === name));
+  document.querySelectorAll("section.panel").forEach(p => p.hidden = p.id !== "p-" + name);
+  store.set("lee.tab", name);
+}
+tabs.forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
+
+/* Roadmap */
+const slider = $("yearSlider");
+const MARKS = [0, 1, 3, 5, 10, 15];
+$("ticks").innerHTML = MARKS.map(m => `<button type="button" data-y="${m}">${m === 0 ? "Start" : m + "y"}</button>`).join("");
+$("ticks").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { slider.value = b.dataset.y; renderRoadmap(); } });
+$("phasebar").innerHTML = PHASES.map(p => `<div data-y="${p.to}" title="${p.name}, years ${p.from}–${p.to}">${p.name}</div>`).join("");
+$("phasebar").addEventListener("click", e => { const d = e.target.closest("div[data-y]"); if (d) { slider.value = d.dataset.y; renderRoadmap(); } });
+slider.addEventListener("input", renderRoadmap);
+
+function renderRoadmap() {
+  const y = +slider.value, p = phaseForYear(y);
+  $("yearNum").textContent = y === 0 ? "Y0" : "Y" + y;
+  $("phName").textContent = p.name;
+  $("phRange").textContent = `Phase ${p.id} · years ${p.from}–${p.to}`;
+  $("phFocus").textContent = p.focus;
+  $("phResults").innerHTML = p.results.map(r => `<li>${esc(r)}</li>`).join("");
+  $("phTargets").innerHTML = p.targets.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join("");
+  const names = { A: "Day A · Striking", B: "Day B · Conditioning", C: "Day C · Kicks & flexibility" };
+  $("phDays").innerHTML = ["A", "B", "C"].map(d => `<div style="display:grid;gap:6px;min-width:0"><b>${names[d]}</b><span class="fine">Lifts: ${esc(p.lift)}</span><ul class="clean">${p.blocks[d].map(b => `<li>${esc(b[0])}, ${esc(b[2])}</li>`).join("")}</ul></div>`).join("");
+  document.querySelectorAll("#ticks button").forEach(b => b.classList.toggle("on", +b.dataset.y === y));
+  document.querySelectorAll("#phasebar div").forEach(d => d.classList.toggle("on", +d.dataset.y === p.to));
+  store.set("lee.year", y);
+}
+
+/* Week */
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+let gymDays = store.get("lee.gymDays", [0, 2, 4]);
+if (!Array.isArray(gymDays) || gymDays.length !== 3) gymDays = [0, 2, 4];
+$("homeToggle").checked = store.get("lee.home", true);
+$("dayChips").innerHTML = DAYS.map((d, i) => `<button class="chip" type="button" data-i="${i}" aria-pressed="false">${d}</button>`).join("");
+$("dayChips").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const i = +b.dataset.i;
+  if (gymDays.includes(i)) { if (gymDays.length > 1) gymDays = gymDays.filter(x => x !== i); }
+  else { gymDays.push(i); if (gymDays.length > 3) gymDays.shift(); }
+  gymDays.sort((a, b) => a - b); renderWeek();
+});
+$("homeToggle").addEventListener("change", renderWeek);
+
+function renderWeek() {
+  const home = $("homeToggle").checked;
+  store.set("lee.gymDays", gymDays); store.set("lee.home", home);
+  document.querySelectorAll("#dayChips .chip").forEach(c => c.setAttribute("aria-pressed", gymDays.includes(+c.dataset.i)));
+  const labels = { A: "Lifts + striking", B: "Lifts + conditioning", C: "Lifts + kicks & flexibility" };
+  // off-day: the last non-gym day before the first gym day is full rest (usually Sunday)
+  const nonGym = DAYS.map((_, i) => i).filter(i => !gymDays.includes(i));
+  const restDay = nonGym.includes(6) ? 6 : nonGym[nonGym.length - 1];
+  $("dayRow").innerHTML = DAYS.map((d, i) => {
+    const gi = gymDays.indexOf(i);
+    if (gi >= 0) { const k = "ABC"[gi]; return `<div class="day gym"><div class="dn">${d}</div><div><span class="pill gym">Gym · Day ${k}</span><div class="tag" style="margin-top:6px">${labels[k]}</div></div></div>`; }
+    if (home && i !== restDay) return `<div class="day"><div class="dn">${d}</div><div><span class="pill home">Home · 15 min</span><div class="tag" style="margin-top:6px">Abs, shadowboxing, stretch, grip</div></div></div>`;
+    return `<div class="day"><div class="dn">${d}</div><div><span class="pill rest">Rest</span><div class="tag" style="margin-top:6px">Walk, sleep well, eat protein</div></div></div>`;
+  }).join("");
+  if (typeof renderProgress === "function" && renderWeek._ready) renderProgress();
+  renderWeek._ready = true;
+}
+
+/* Session */
+$("selPhase").innerHTML = PHASES.map(p => `<option value="${p.id}">Phase ${p.id} · ${p.name} (years ${p.from}–${p.to})</option>`).join("");
+$("selPhase").value = store.get("lee.sessPhase", 1);
+$("selDay").value = store.get("lee.sessDay", "A");
+$("selPhase").addEventListener("change", renderSession);
+$("selDay").addEventListener("change", renderSession);
+$("clearBtn").addEventListener("click", () => { store.set(sessKey(), []); renderSession(); });
+const sessKey = () => `lee.checks.${$("selPhase").value}.${$("selDay").value}`;
+
+/* Exercise explanations: how to do it, why it's in the plan, what to avoid */
+const EXPLAIN = {
+  "Jump rope": { how: ["Hold the handles at hip height with elbows close to your sides. Turn the rope with your wrists, not your whole arms.", "Stay on the balls of your feet and jump only an inch or so off the floor.", "Start with a two-foot bounce. Add alternating feet once that feels smooth."], why: "Lee skipped rope almost every day. It warms up the whole body fast and trains the light, bouncy footwork you need in a fight.", avoid: "Jumping too high or swinging the rope with big arm circles." },
+  "Dynamic stretches": { how: ["10 leg swings per leg, front to back, then side to side.", "10 arm circles each direction and 10 hip circles.", "10 slow bodyweight squats."], why: "Moves each joint through its range and raises your body temperature so your muscles and back are ready for weight.", avoid: "Long, still stretches before lifting. Save those for the end of the session." },
+  "Warm-up sets": { how: ["Before your first working set of each lift, do 5–8 reps with about half the weight.", "In the heavier phases, add a second warm-up set at about three-quarters of the weight."], why: "Rehearses the movement and gets the muscles firing. In 1970 Lee badly hurt his back doing a heavy good morning without warming up, and it took him months to recover.", avoid: "Jumping straight to your working weight." },
+  "Clean & press": { how: ["Bar over the middle of your feet, hands just outside your knees, back flat.", "Stand up and pull the bar fast, then drop your elbows under it to catch it on the front of your shoulders.", "Tighten your abs and glutes, press the bar straight overhead, then lower it under control."], why: "One of Lee's six core lifts. It trains legs, back and shoulders to fire together, the same chain that powers a punch or a kick.", avoid: "Leaning back as you press. If the clean feels awkward, use dumbbells until a coach can check your form." },
+  "Squat": { how: ["Bar across your upper back, feet shoulder-width, toes turned out a little.", "Brace your abs, then sit down between your hips with your knees following your toes.", "Go as low as you can while your back stays flat, then drive up through your whole foot."], why: "The base of leg strength for kicks, footwork and jumping. Lee did 2 sets of 12 in his 1965 program.", avoid: "Knees caving inward or heels lifting off the floor." },
+  "Pullover": { how: ["Lie with your upper back across a bench and hold one dumbbell over your chest with both hands.", "Keep your elbows slightly bent and lower the weight behind your head until you feel a stretch in your chest and sides.", "Breathe in deeply on the way down, then pull it back over your chest."], why: "Lee used pullovers to open up his chest and strengthen his lats, the big back muscles behind strong punches and pulls.", avoid: "Going heavy and bending and straightening your elbows. The movement should come from your shoulders." },
+  "Bench press": { how: ["Eyes under the bar, feet flat, shoulder blades squeezed together.", "Lower the bar to the middle of your chest with elbows about 45° from your body.", "Press up and slightly back toward your face. Use a spotter or safety pins."], why: "Builds pushing strength in the chest, shoulders and triceps for punches and push-ups.", avoid: "Bouncing the bar off your chest or flaring your elbows straight out." },
+  "Good morning": { how: ["Light bar across your upper back, knees slightly bent.", "Push your hips back and lean forward with a flat back until you feel your hamstrings stretch.", "Stop around parallel, or sooner if your back starts to round, then push your hips forward to stand up."], why: "Strengthens the lower back and hamstrings that power your kicks and protect your spine.", avoid: "Heavy weight or a rounded back. This is the lift that injured Lee. Keep it light and always warm up first." },
+  "Barbell curl": { how: ["Stand tall, hands shoulder-width apart, elbows pinned to your sides.", "Curl the bar up without swinging, then lower it slowly over 2–3 seconds."], why: "Builds the biceps and grip strength you use when you grab, pull or clinch.", avoid: "Rocking your back to swing the weight up." },
+  "Dumbbell press": { how: ["Dumbbells at your shoulders, palms forward or facing each other.", "Brace and press up until your arms are straight, then lower slowly."], why: "Takes the clean & press's place in the Longevity phase. You keep the shoulder strength with less strain on your wrists and back.", avoid: "Arching your lower back to push the weight up." },
+  "Trap-bar deadlift": { how: ["Stand inside the bar and grip the handles, hips back, chest up.", "Push the floor away until you're standing tall, then lower the same way."], why: "Takes the good morning's place later on. It trains your back and hips with the weight centred on your body, which is easier on the spine.", avoid: "Letting your back round at the bottom." },
+  "Shadowboxing": { how: ["Get into your fighting stance: strong side forward as Lee taught it, hands up, chin down, knees soft.", "Throw the straight lead and jab-cross at an imaginary opponent while stepping in and out.", "Stay relaxed. Snap each punch out and bring it straight back."], why: "Teaches stance, footwork and clean technique with no equipment. The straight lead was Lee's signature punch.", avoid: "Standing flat-footed or dropping your hands after you punch." },
+  "Heavy bag": { how: ["Wrap your hands and wear bag gloves.", "Stand at punching distance in your stance. Hit with the first two knuckles, wrist straight, and pull the hand back fast.", "Move around the bag between combinations, like it's an opponent."], why: "Teaches you to hit something solid with power and to keep going when you're tired.", avoid: "Pushing the bag instead of snapping punches into it, or holding your breath." },
+  "Speed bag or focus mitts": { how: ["Speed bag: hit it in a steady rhythm with the side of your fist and keep your movements small.", "Focus mitts: a partner holds pads and calls combinations; you hit them fast and accurately."], why: "Builds hand speed, timing and hand-eye coordination, the qualities Lee was most famous for.", avoid: "Tense shoulders. Speed comes from staying loose." },
+  "Easy run": { how: ["Run at a pace where you could still hold a conversation.", "Walk for a minute whenever you need to, then start running again.", "Over a few months, work toward running the whole time."], why: "Builds the aerobic base everything else depends on. Lee ran almost every day.", avoid: "Starting too fast and burning out after a few minutes." },
+  "Roadwork": { how: ["Run 2 miles (3 in the Mastery phase).", "Mix up the pace: easy stretches, a few faster bursts, and a strong finish.", "Lee often threw short sprints into his runs."], why: "Lee's main cardio. Changing pace trains you for fighting, where the pace constantly changes too.", avoid: "Running every session at the same speed." },
+  "Slow kicks": { how: ["Hold a wall or rack for balance at first.", "Lift the knee first, extend the kick slowly, hold for a second, pull the leg back, then set it down.", "Do front, side and roundhouse kicks at knee height."], why: "Slow kicks build balance, hip strength and correct form before you add speed.", avoid: "Leaning far back or swinging the leg without control." },
+  "Stretching": { how: ["Stretch hamstrings, hips, groin and calves.", "Hold each stretch 30–45 seconds, breathe slowly and never bounce.", "Do it at the end of training while your muscles are warm."], why: "Lee's high kicks came from daily flexibility work. It also helps you cool down.", avoid: "Forcing a stretch until it hurts." },
+  "Kicks on the bag": { how: ["Side kick: turn your hip over and hit with the heel, the edge of your foot parallel to the floor.", "Roundhouse: pivot on your standing foot and hit with your shin or the top of your foot.", "Return to your stance after every kick."], why: "Teaches you to put your body weight into a kick. The side kick was one of Lee's most powerful techniques.", avoid: "Kicking with just the leg and not turning your hip." },
+  "Intervals": { how: ["Run 400 m (one lap of a track) hard, at about 85% effort.", "Jog or walk 400 m to recover.", "Repeat 6 times. On a bike, do 1 minute hard and 1 minute easy."], why: "Builds the ability to go hard, recover and go hard again, like rounds in a fight.", avoid: "Sprinting all-out on the first round and fading." },
+  "Lee-style circuit": { how: ["Do each move for 30 seconds, back to back: squat jumps, push-ups, pull-ups, then non-stop punches on the bag.", "Rest 1–2 minutes after all four. Do 3 rounds."], why: "Lee used circuit training to build strength and stamina at the same time.", avoid: "Sloppy form when tired. Slow down instead." },
+  "Plyometrics": { how: ["Box jumps: jump onto a sturdy box, land softly, then step down.", "Broad jumps: swing your arms, jump forward as far as you can and land steady.", "Rest fully between reps so every jump is a max effort."], why: "Trains explosive power, the fast-twitch speed behind quick kicks and footwork.", avoid: "Doing them when exhausted or landing with stiff legs." },
+  "Isometric holds in the rack": { how: ["Set the rack pins so the bar can't move, at the height of a press, squat or pull.", "Push or pull against it as hard as you can for 6–12 seconds, breathing steadily.", "Rest about a minute between holds."], why: "Lee used isometrics in the 1960s to build strength without extra bulk. Max-effort holds teach your body to recruit more muscle at once.", avoid: "Holding your breath, which spikes blood pressure. Skip these if you have heart or blood-pressure issues." },
+  "Kicks and stretching": { how: ["Kick in the air or on the bag, working up to head height with control.", "Finish with 10 minutes of hip and hamstring stretching."], why: "Turns the flexibility you've built into usable high kicks.", avoid: "Throwing high kicks before you're warm." },
+  "Partner drills or sparring": { how: ["Drills: your partner attacks with a set move, you defend and counter. Then swap.", "Light sparring with gloves, a mouthguard and a partner you trust.", "A martial arts class covers this block well."], why: "Timing and distance only come from training with someone who moves and hits back. Lee believed you learn to fight by fighting, not by solo drills alone.", avoid: "Sparring too hard. Keep it light and technical." },
+  "Full kicking practice": { how: ["Work through front, side, roundhouse, hook and back kicks on both sides.", "Mix slow, controlled reps with fast, powerful kicks on the bag."], why: "Keeps your kicking complete and balanced on both sides.", avoid: "Only training your favourite side." },
+  "Mobility and stretching": { how: ["Hip circles, deep squat holds, spine twists, and shoulder circles with a band or stick.", "Then long stretches, 45–60 seconds each."], why: "Keeps your joints healthy and your range of motion high as the years of training add up.", avoid: "Rushing through it." },
+  "Speed bursts": { how: ["Punch as fast as you can for 20 seconds, on the bag or shadowboxing.", "Rest about 40 seconds between bursts."], why: "Speed is the first thing to fade with age. Short all-out bursts help you keep it.", avoid: "Letting technique fall apart for speed." },
+  "Easy aerobic": { how: ["Run, bike or row for 30 minutes at a pace you could chat at."], why: "Keeps your heart healthy and helps recovery, with little strain on your joints.", avoid: "Turning it into a hard workout." },
+  "Surges": { how: ["During your easy session, speed up hard for 30 seconds.", "Go back to easy for 2–3 minutes. Repeat 4 times."], why: "Keeps your top-end fitness without a full interval session.", avoid: "Skipping the easy recovery between surges." },
+  "Mobility and balance": { how: ["Stand on one leg (eyes closed for a challenge) and do single-leg deadlifts.", "Long stretches for hips, hamstrings and shoulders."], why: "Balance and mobility decline with age unless you train them. They protect you from falls and injuries.", avoid: "Skipping it because it feels easy." },
+  "Leg raises": { how: ["Lie flat with your hands under your hips and your lower back pressed into the floor.", "Raise straight legs to vertical, then lower them slowly and stop just above the floor."], why: "Lee trained his abs nearly every day. Strong lower abs protect your spine and link hip power to your upper body.", avoid: "Letting your lower back arch off the floor." },
+  "Sit-up twists": { how: ["Knees bent, feet anchored, hands lightly behind your head.", "Sit up and twist, bringing one elbow toward the opposite knee. Alternate sides."], why: "Works the obliques, the muscles that rotate your trunk when you punch.", avoid: "Yanking on your neck with your hands." },
+  "Waist twists": { how: ["Stand with a broomstick across your shoulders, feet wide.", "Twist side to side in a steady rhythm while your hips stay facing forward."], why: "A Lee favourite for a strong, lean waist and loose rotation.", avoid: "Violent, jerky twisting. Keep it controlled." },
+  "Wrist curls": { how: ["Sit with your forearms on your thighs, palms up, holding a light bar or dumbbell.", "Let it roll down to your fingertips, then curl it up using only your wrists."], why: "Lee's forearms were famously strong. They give you a solid grip and stable wrists for punching.", avoid: "Using too much weight and jerking it up." },
+  "Wrist roller": { how: ["Hold a wrist roller (a bar with a rope and weight hanging from it) straight out in front of you.", "Roll the weight up by twisting your wrists, then roll it down slowly. Up and down is one trip."], why: "Lee's favourite forearm tool. It builds grip and wrist strength for punching and grabbing.", avoid: "Letting your arms sag. Keep them straight out." },
+  "Reverse curls": { how: ["Hold a barbell with palms facing down.", "Curl it up with your elbows pinned, then lower slowly."], why: "Works the top of the forearm and balances out the wrist curls.", avoid: "Swinging the weight." },
+  "Dragon flag progression": { how: ["Lie on a bench and grip it behind your head.", "Lift your body so only your upper back touches the bench, body straight like a plank.", "Lower slowly. Start with knees tucked, then one leg out, then fully straight."], why: "Lee's signature ab exercise. It builds serious strength through your whole core.", avoid: "Bending at the hips. It only counts with a straight body." },
+  "Hanging leg raises": { how: ["Hang from a pull-up bar with your shoulders pulled down.", "Raise your legs to at least hip height without swinging (knees bent at first, straight later).", "Lower slowly."], why: "Trains abs and grip at the same time.", avoid: "Swinging to get your legs up." },
+  "Lee's ab circuit": { how: ["Waist twists ×40, sit-up twists ×15, leg raises ×15, frog kicks ×15.", "Frog kicks: lie on your back, pull your knees to your chest, then kick both legs out straight.", "Go straight from one to the next."], why: "Based on the ab routine Lee did almost every day.", avoid: "Rushing reps. Control beats speed here." },
+  "Forearms": { how: ["Wrist roller: 3 trips.", "Reverse curls: 2 sets of 12."], why: "Keeps your grip and wrists strong for striking and grappling.", avoid: "Skipping it when short on time. It only takes a few minutes." },
+  "Plank + side planks": { how: ["Forearms under your shoulders, body in a straight line from head to heels.", "Squeeze your glutes and abs and hold.", "Side plank: stack your feet, lift your hips and hold each side."], why: "Builds core endurance that protects your back.", avoid: "Hips sagging down or piking up." },
+  "Grip holds": { how: ["Hang from a pull-up bar, or hold heavy dumbbells at your sides.", "Hold for 30 seconds."], why: "Grip strength drops with age and is linked to overall health. This keeps it up.", avoid: "Letting your shoulders shrug up to your ears." }
+};
+const ALIAS = { "Heavy bag, light": "Heavy bag", "Heavy bag rounds": "Heavy bag", "Heavy bag, technical": "Heavy bag", "Speed bag": "Speed bag or focus mitts", "Controlled kicks": "Slow kicks", "Wrist roller, heavier": "Wrist roller" };
+function explainHTML(name) {
+  const e = EXPLAIN[name] || EXPLAIN[ALIAS[name]]; if (!e) return "";
+  return `<details class="why"><summary>How &amp; why</summary><div class="whybody">
+    <div><span class="k">How to do it</span><ol>${e.how.map(s => `<li>${esc(s)}</li>`).join("")}</ol></div>
+    <div><span class="k">Why it's in the plan</span>${esc(e.why)}</div>
+    ${e.avoid ? `<div class="warn"><span class="k">Avoid</span>${esc(e.avoid)}</div>` : ""}
+  </div></details>`;
+}
+$("expandBtn").addEventListener("click", () => {
+  const ds = [...$("sessionBody").querySelectorAll("details.why")], open = !ds.every(d => d.open);
+  ds.forEach(d => d.open = open);
+  $("expandBtn").textContent = open ? "Close all explanations" : "Open all explanations";
+});
+
+function renderSession() {
+  const p = PHASES[+$("selPhase").value - 1], d = $("selDay").value;
+  store.set("lee.sessPhase", p.id); store.set("lee.sessDay", d);
+  const lifts = LIFTS.map(([n, t]) => (p.id === 5 && LIFTS_P5[n]) ? [...LIFTS_P5[n], p.lift.split(";")[0]] : [n, t, p.lift.split(";")[0]]);
+  if (p.id === 3) lifts[0][2] = "5 × 3, fast";
+  const groups = sessionGroups(p, d, lifts);
+  $("sumS").innerHTML = sumHTML(groups, p);
+  const checks = new Set(store.get(sessKey(), []));
+  let idx = 0, total = 0;
+  $("sessionBody").innerHTML = groups.map(([title, time, items]) => `
+    <div class="block"><h3>${esc(title)} <small>${groupTimeLabel(items, p)}</small></h3>
+    ${items.map(([n, t, rx]) => { const id = "ex" + idx++; total++; const on = checks.has(id);
+      return `<div class="ex${on ? " done" : ""}"><input type="checkbox" id="${id}" ${on ? "checked" : ""} aria-describedby="${id}-n"><label class="exmain" for="${id}"><div class="nm">${esc(n)}</div>${t ? `<div class="nt" id="${id}-n">${esc(t)}</div>` : ""}</label>${rxHTML(n, rx, p)}${explainHTML(n)}</div>`; }).join("")}
+    </div>`).join("");
+  $("sessionBody").querySelectorAll("input").forEach(inp => inp.addEventListener("change", () => {
+    const s = new Set(store.get(sessKey(), []));
+    inp.checked ? s.add(inp.id) : s.delete(inp.id);
+    store.set(sessKey(), [...s]);
+    inp.closest(".ex").classList.toggle("done", inp.checked);
+    updateProgress(); renderGym();
+  }));
+  updateProgress();
+  if (typeof renderGym === "function" && window.__gymReady) renderGym();
+}
+/* Time estimates: work time, rest between sets/rounds, and totals */
+const LIFT_REST = [60, 90, 150, 120, 75];          // seconds between lifting sets, by phase
+const LIFT_NAMES = new Set(["Clean & press", "Squat", "Pullover", "Bench press", "Good morning", "Barbell curl", "Dumbbell press", "Trap-bar deadlift"]);
+const REST = {
+  "Warm-up sets": 60, "Shadowboxing": 60, "Heavy bag": 60, "Heavy bag, light": 60, "Heavy bag rounds": 60, "Heavy bag, technical": 60,
+  "Speed bag or focus mitts": 45, "Speed bag": 45, "Jump rope": 45, "Slow kicks": 45, "Controlled kicks": 45, "Kicks on the bag": 60,
+  "Plyometrics": 90, "Isometric holds in the rack": 60, "Speed bursts": 40, "Surges": 150, "Partner drills or sparring": 60,
+  "Leg raises": 45, "Sit-up twists": 45, "Wrist curls": 45, "Waist twists": 30, "Reverse curls": 45, "Wrist roller": 60, "Wrist roller, heavier": 60,
+  "Dragon flag progression": 90, "Hanging leg raises": 60, "Plank + side planks": 30, "Grip holds": 45
+};
+// fixed estimates for items that aren't simple sets × reps or rounds
+const FIXED = {
+  "Warm-up sets": { work: 90, rest: 60, restTxt: "1:00 between" },
+  "Roadwork": null, "Intervals": { work: 12 * 60, rest: 18 * 60, restTxt: "easy 400 m" },
+  "Lee-style circuit": { work: 3 * 120, rest: 2 * 90, restTxt: "1:30 per round" },
+  "Lee's ab circuit": { work: 2 * 240, rest: 60, restTxt: "1:00 per round" },
+  "Forearms": { work: 7 * 60, rest: 3 * 60, restTxt: "1:00 between" },
+  "Easy aerobic": { work: 30 * 60, rest: 0 }
+};
+const mmssT = s => Math.floor(s / 60) + ":" + String(Math.round(s % 60)).padStart(2, "0");
+function taskTime(name, rx, p) {
+  const phaseIdx = p.id - 1;
+  if (name === "Roadwork") { const mi = +(rx.match(/(\d+)\s*mile/) || [0, 2])[1]; return { work: mi * 10 * 60, rest: 0, restTxt: "none" }; }
+  if (FIXED[name]) return { restTxt: FIXED[name].rest ? mmssT(FIXED[name].rest) : "none", ...FIXED[name] };
+  const legs = /each leg/.test(rx) ? 2 : 1;
+  const restPer = LIFT_NAMES.has(name) ? LIFT_REST[phaseIdx] : (REST[name] ?? 60);
+  // rounds of a set duration: "4 × 3 min", "8 × 20 s", "3 × 45 s"
+  let m = rx.match(/(\d+)\s*×\s*(\d+)\s*(min|s)\b/);
+  if (m) { const n = +m[1], dur = +m[2] * (m[3] === "min" ? 60 : 1) * (name === "Plank + side planks" ? 3 : 1); return { work: n * dur, rest: (n - 1) * restPer, restTxt: mmssT(restPer) + " between" }; }
+  // sets × reps: "3 × 8", "2 × 10–12", "3 × 10 each leg"
+  m = rx.match(/(\d+)\s*×\s*(\d+)(?:\s*[–-]\s*(\d+))?/);
+  if (m) {
+    const sets = +m[1], reps = +(m[3] || m[2]), perRep = name === "Waist twists" ? 1.5 : LIFT_NAMES.has(name) ? 4 : 3;
+    const setup = LIFT_NAMES.has(name) ? 60 : 0;   // loading the bar / adjusting the bench
+    return { work: sets * reps * perRep * legs + setup, rest: (sets - 1) * restPer + (legs > 1 ? sets * 10 : 0), restTxt: mmssT(restPer) + " between" };
+  }
+  m = rx.match(/(\d+)\s*trips?/);
+  if (m) { const n = +m[1]; return { work: n * 60, rest: (n - 1) * restPer, restTxt: mmssT(restPer) + " between" }; }
+  m = rx.match(/(\d+)\s*min/);
+  if (m) return { work: +m[1] * 60, rest: 0, restTxt: "none" };
+  return { work: 180, rest: 0, restTxt: "none" };
+}
+const fmtDur = s => { const m = Math.round(s / 60); return m >= 60 ? `${Math.floor(m / 60)} h ${m % 60} min` : `${Math.max(1, m)} min`; };
+function rxHTML(n, rx, p) {
+  const t = taskTime(n, rx, p);
+  return `<div class="rx">${esc(rx)}<div class="tm"><span class="t" title="Total time for this exercise, rest included">≈ ${fmtDur(t.work + t.rest)}</span><span class="r" title="Rest between sets or rounds">${t.restTxt === "none" ? "Continuous" : "Rest " + esc(t.restTxt)}</span></div></div>`;
+}
+const TRANSITION = 30;   // walking to the next station, grabbing gear
+function groupSeconds(items, p) { return items.reduce((a, [n, , rx]) => { const t = taskTime(n, rx, p); return { work: a.work + t.work, rest: a.rest + t.rest + TRANSITION }; }, { work: 0, rest: 0 }); }
+function groupTimeLabel(items, p) { const g = groupSeconds(items, p); return "≈ " + fmtDur(g.work + g.rest); }
+function sumHTML(groups, p) {
+  const tot = groups.reduce((a, [, , items]) => { const g = groupSeconds(items, p); return { work: a.work + g.work, rest: a.rest + g.rest }; }, { work: 0, rest: 0 });
+  return `<div><span class="label">Total session</span><b>${fmtDur(tot.work + tot.rest)}</b></div><div><span class="label">Working</span><b>${fmtDur(tot.work)}</b></div><div><span class="label">Resting</span><b>${fmtDur(tot.rest)}</b></div><p class="fine">Estimates. Rest includes time between sets and about 30 s to move between exercises. Lifting rest in this phase: ${mmssT(LIFT_REST[p.id - 1])} between sets.</p>`;
+}
+
+function sessionGroups(p, d, lifts) {
+  const blockNames = { A: "Striking", B: "Conditioning", C: "Kicks & flexibility" };
+  return [
+    ["Warm-up", "10 min", [["Jump rope", "Easy rhythm", "3 min"], ["Dynamic stretches", "Leg swings, arm circles, hip circles, bodyweight squats", "5 min"], ["Warm-up sets", "One light set before your first lift", "1–2 sets"]]],
+    ["Lee's six lifts", "≈ 25 min", lifts],
+    [blockNames[d], "≈ 25 min", p.blocks[d]],
+    ["Abs & forearms", "10 min", p.finisher]
+  ];
+}
+function updateProgress() {
+  const all = $("sessionBody").querySelectorAll("input"), done = [...all].filter(i => i.checked).length;
+  $("progTxt").textContent = `${done} / ${all.length}`;
+  $("progBar").style.width = (all.length ? done / all.length * 100 : 0) + "%";
+}
+
+/* Timer */
+let T = { running: false, phase: "ready", left: 180, round: 1, iv: null }, audio = null;
+function bell(n = 1) {
+  try {
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    for (let k = 0; k < n; k++) {
+      const o = audio.createOscillator(), g = audio.createGain(), t0 = audio.currentTime + k * 0.35;
+      o.type = "sine"; o.frequency.value = 880; o.connect(g); g.connect(audio.destination);
+      g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.4, t0 + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.3);
+      o.start(t0); o.stop(t0 + 0.32);
+    }
+  } catch (e) {}
+}
+const cfg = () => ({ work: Math.max(5, +$("tWork").value || 180), rest: Math.max(0, +$("tRest").value || 0), rounds: Math.max(1, +$("tRounds").value || 1) });
+const fmt = s => Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+function drawTimer() {
+  const c = cfg();
+  $("tClock").textContent = fmt(T.left);
+  $("tClock").className = "clock mono " + (T.phase === "rest" ? "rest" : T.phase === "work" ? "work" : "");
+  $("tState").textContent = { ready: "Ready", work: "Work", rest: "Rest", done: "Done. Good work." }[T.phase];
+  $("tRound").textContent = `Round ${Math.min(T.round, c.rounds)} of ${c.rounds}`;
+  $("tStart").textContent = T.running ? "Pause" : (T.phase === "ready" || T.phase === "done" ? "Start" : "Resume");
+}
+function tick() {
+  T.left--;
+  if (T.left > 0) return drawTimer();
+  const c = cfg();
+  if (T.phase === "work") {
+    if (T.round >= c.rounds) { T.phase = "done"; T.left = 0; stopTimer(); bell(3); return drawTimer(); }
+    if (c.rest > 0) { T.phase = "rest"; T.left = c.rest; bell(2); }
+    else { T.round++; T.left = c.work; bell(1); }
+  } else if (T.phase === "rest") { T.round++; T.phase = "work"; T.left = c.work; bell(1); }
+  drawTimer();
+}
+function stopTimer() { T.running = false; clearInterval(T.iv); }
+$("tStart").addEventListener("click", () => {
+  if (T.running) { stopTimer(); return drawTimer(); }
+  if (T.phase === "ready" || T.phase === "done") { T = { ...T, phase: "work", left: cfg().work, round: 1 }; bell(1); }
+  T.running = true; T.iv = setInterval(tick, 1000); drawTimer();
+});
+$("tReset").addEventListener("click", resetTimer);
+function resetTimer() { stopTimer(); T.phase = "ready"; T.round = 1; T.left = cfg().work; drawTimer(); }
+["tWork", "tRest", "tRounds"].forEach(id => $(id).addEventListener("change", () => { if (!T.running) resetTimer(); }));
+document.querySelector(".presets").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const [w, r, n] = b.dataset.p.split(",");
+  $("tWork").value = w; $("tRest").value = r; $("tRounds").value = n; resetTimer();
+});
+
+/* ---------- Progress tracking ---------- */
+const pad = n => String(n).padStart(2, "0");
+const iso = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+const today = () => iso(new Date());
+const parseDate = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+const mmss = s => s == null ? "—" : Math.floor(s / 60) + ":" + pad(Math.round(s % 60));
+const niceDate = s => parseDate(s).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+const weekStart = d => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; };
+const yearsSince = s => (new Date() - parseDate(s)) / (365.25 * 864e5);
+const phaseIdxForElapsed = y => y < 1 ? 0 : y < 3 ? 1 : y < 5 ? 2 : y < 10 ? 3 : 4;
+const DAYNAMES = { A: "Day A · Striking", B: "Day B · Conditioning", C: "Day C · Kicks" };
+
+let P = { profile: {}, logs: {}, tests: {} };   // logs: { "2026": { key: entry } }
+let mode = "pending", db = null, uid = null;
+const LOCAL_KEY = "lee.progress";
+const writeQueues = {};
+
+function setSync(txt, cls) { const n = $("syncNote"); n.textContent = txt; n.className = "sync " + (cls || ""); }
+function toast(msg) {
+  let t = document.querySelector(".toast"); if (!t) { t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); document.body.appendChild(t); }
+  t.textContent = msg; t.hidden = false; clearTimeout(t._h); t._h = setTimeout(() => t.hidden = true, 2600);
+}
+
+function saveDoc(name, body) {
+  if (mode === "cloud") {
+    const q = writeQueues[name] || Promise.resolve();
+    writeQueues[name] = q.then(() => db.doc(`data/users/${uid}/${name}`).set(body)).catch(e => {
+      if (e && e.code === "quota_exceeded") toast("Storage is full. Delete some old entries.");
+      else toast("Couldn't save to your account. Check your connection and try again.");
+    });
+  } else {
+    store.set(LOCAL_KEY, P);
+  }
+}
+const logDocBody = y => ({ entries: P.logs[y] || {} });
+const testsBody = () => ({ tests: P.tests });
+
+function applySnapshot(snap) {
+  const next = { profile: {}, logs: {}, tests: {} };
+  snap.docs.forEach(d => {
+    const data = JSON.parse(JSON.stringify(d.data() || {}));
+    if (d.id === "profile") next.profile = data;
+    else if (d.id === "tests") next.tests = data.tests || {};
+    else if (d.id.startsWith("log-")) next.logs[d.id.slice(4)] = data.entries || {};
+  });
+  P = next; renderProgress();
+}
+
+async function initProgress() {
+  const local = store.get(LOCAL_KEY, null);
+  if (local && typeof local === "object") P = { profile: local.profile || {}, logs: local.logs || {}, tests: local.tests || {} };
+  renderProgress();
+  let user = null;
+  try { if (window.claude && claude.use) { [db, user] = await Promise.all([claude.use("db"), claude.use("user")]); } } catch (e) { db = null; }
+  try { uid = user ? await user.id() : null; } catch (e) { uid = null; }
+  if (db && uid) {
+    mode = "cloud";
+    setSync("Saved to your Claude account. Your progress follows you across devices.", "cloud");
+    const hadLocal = local && ((local.tests && Object.keys(local.tests).length) || (local.logs && Object.keys(local.logs).length));
+    let first = true;
+    db.collection(`data/users/${uid}`).onSnapshot(snap => {
+      if (first && snap.empty && hadLocal && !snap.metadata.fromCache) {
+        // one-time move of anything recorded in this browser before cloud saving was available
+        first = false;
+        const L = { profile: local.profile || {}, tests: local.tests || {}, logs: local.logs || {} };
+        P = L; renderProgress(); saveDoc("profile", L.profile); saveDoc("tests", { tests: L.tests });
+        Object.keys(L.logs).forEach(y => saveDoc("log-" + y, { entries: L.logs[y] }));
+        return;
+      }
+      if (!snap.metadata.fromCache) first = false;
+      applySnapshot(snap);
+    }, () => { mode = "local"; setSync("Couldn't reach your account. Saving in this browser for now.", "local"); });
+  } else {
+    mode = "local";
+    setSync(window.claude ? "Saving in this browser only. Open this page signed in to Claude to keep progress across devices." : "Saved on this device, in this browser. Clearing your browser data will erase it.", "local");
+  }
+}
+
+function allSessions() {
+  const out = [];
+  Object.values(P.logs).forEach(m => Object.entries(m || {}).forEach(([k, e]) => out.push({ key: k, ...e })));
+  return out.sort((a, b) => (b.date + b.t).localeCompare(a.date + a.t));
+}
+function currentPhaseIdx() { return P.profile.start ? phaseIdxForElapsed(yearsSince(P.profile.start)) : null; }
+
+function logSession(entry) {
+  const y = entry.date.slice(0, 4);
+  const key = entry.date + "_" + Date.now().toString(36);
+  P.logs[y] = { ...(P.logs[y] || {}), [key]: entry };
+  saveDoc("log-" + y, logDocBody(y)); renderProgress();
+}
+function deleteSession(key) {
+  const y = key.slice(0, 4); if (!P.logs[y]) return;
+  const m = { ...P.logs[y] }; delete m[key]; P.logs[y] = m;
+  saveDoc("log-" + y, logDocBody(y)); renderProgress();
+}
+
+$("sessDate").value = today();
+$("logSessBtn").addEventListener("click", () => {
+  const date = $("sessDate").value || today();
+  const all = $("sessionBody").querySelectorAll("input"), done = [...all].filter(i => i.checked).length;
+  if (done === 0) { toast("Tick off at least one exercise first."); return; }
+  logSession({ date, day: $("selDay").value, phase: +$("selPhase").value, done, total: all.length, note: $("sessNote").value.trim().slice(0, 200), t: new Date().toISOString() });
+  store.set(sessKey(), []); $("sessNote").value = ""; renderSession();
+  toast(`Logged ${DAYNAMES[$("selDay").value]} for ${niceDate(date)}`);
+});
+
+$("startDate").addEventListener("change", () => {
+  const v = $("startDate").value; if (!v) return;
+  P.profile = { ...P.profile, start: v }; saveDoc("profile", P.profile); renderProgress(true);
+});
+
+$("tDate").value = today();
+$("testForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const num = id => { const v = $(id).value.trim(); return v === "" ? null : +v; };
+  let run = null; const rv = $("tRun").value.trim();
+  if (rv) { const m = rv.match(/^(\d{1,2}):(\d{2})$/); if (!m || +m[2] > 59) { toast("Enter the run time as mm:ss, like 18:30."); return; } run = +m[1] * 60 + +m[2]; }
+  const t = { bodyweight: num("tBw"), pushups: num("tPush"), pullups: num("tPull"), plank: num("tPlank"), run2: run, squat: num("tSquat") };
+  if (Object.values(t).every(v => v == null)) { toast("Fill in at least one result."); return; }
+  const date = $("tDate").value || today();
+  P.tests = { ...P.tests, [date]: t }; saveDoc("tests", testsBody());
+  ["tBw", "tPush", "tPull", "tPlank", "tRun", "tSquat"].forEach(id => $(id).value = "");
+  renderProgress(); toast("Test saved for " + niceDate(date));
+});
+
+const METRICS = {
+  pushups: { label: "Push-ups", unit: "reps", tgt: [25, 40, 50, 50, 40] },
+  pullups: { label: "Pull-ups", unit: "reps", tgt: [4, 9, 13, 13, 10] },
+  plank: { label: "Plank", unit: "time", fmt: mmss, tgt: [60, 120, 120, 120, 120] },
+  run2: { label: "2-mile run", unit: "time", fmt: mmss, lower: true, tgt: [1200, 990, 900, 900, null] },
+  squat: { label: "Squat", unit: "lb", ratio: [0.75, 1.25, 1.5, 1.5, null] },
+  bodyweight: { label: "Bodyweight", unit: "lb" }
+};
+let metric = store.get("lee.metric", "pushups"); if (!METRICS[metric]) metric = "pushups";
+$("metricChips").innerHTML = Object.entries(METRICS).map(([k, m]) => `<button class="chip" type="button" data-m="${k}" aria-pressed="false">${m.label}</button>`).join("");
+$("metricChips").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { metric = b.dataset.m; store.set("lee.metric", metric); drawChart(); } });
+
+function drawChart() {
+  document.querySelectorAll("#metricChips .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.m === metric));
+  const M = METRICS[metric], fmt = M.fmt || (v => (Math.round(v * 10) / 10) + (M.unit === "lb" ? " lb" : ""));
+  const pts = Object.entries(P.tests).filter(([, t]) => t && t[metric] != null).map(([d, t]) => ({ d, x: parseDate(d).getTime(), y: t[metric] })).sort((a, b) => a.x - b.x);
+  const pi = currentPhaseIdx() ?? 0;
+  let target = M.tgt ? M.tgt[pi] : null;
+  if (M.ratio) { const bws = Object.entries(P.tests).filter(([, t]) => t && t.bodyweight).sort(); const bw = bws.length ? bws[bws.length - 1][1].bodyweight : null; target = bw && M.ratio[pi] ? Math.round(bw * M.ratio[pi] / 5) * 5 : null; }
+  const svg = $("chart"), W = 640, H = 240, L = 52, R = 16, T = 16, B = 30;
+  const ink = "var(--ink)", muted = "var(--muted)", line = "var(--line)", accent = "var(--seal)";
+  const note = $("chartNote");
+  const tgtTxt = target != null ? `Phase ${pi + 1} target: ${fmt(target)}${M.lower ? " or faster" : ""}.` : "";
+  if (!pts.length) {
+    svg.innerHTML = `<text x="${W / 2}" y="${H / 2}" text-anchor="middle">No ${M.label.toLowerCase()} results yet. Record a test below to start the line.</text>`;
+    note.textContent = tgtTxt; return;
+  }
+  const ys = pts.map(p => p.y).concat(target != null ? [target] : []);
+  let y0 = Math.min(...ys), y1 = Math.max(...ys); const padY = (y1 - y0) * 0.15 || Math.max(1, y1 * 0.1); y0 = Math.max(0, y0 - padY); y1 = y1 + padY;
+  let x0 = pts[0].x, x1 = pts[pts.length - 1].x; if (x0 === x1) { x0 -= 30 * 864e5; x1 += 30 * 864e5; }
+  const sx = x => L + (x - x0) / (x1 - x0) * (W - L - R), sy = y => T + (1 - (y - y0) / (y1 - y0)) * (H - T - B);
+  const ticks = [0, 1, 2, 3].map(i => y0 + (y1 - y0) * i / 3);
+  let g = ticks.map(v => `<line x1="${L}" x2="${W - R}" y1="${sy(v)}" y2="${sy(v)}" stroke="${line}" stroke-width="1"/><text x="${L - 8}" y="${sy(v) + 4}" text-anchor="end">${M.fmt ? M.fmt(v) : Math.round(v)}</text>`).join("");
+  g += `<text x="${L}" y="${H - 8}">${niceDate(pts[0].d)}</text>`;
+  if (pts.length > 1) g += `<text x="${W - R}" y="${H - 8}" text-anchor="end">${niceDate(pts[pts.length - 1].d)}</text>`;
+  if (target != null) g += `<line x1="${L}" x2="${W - R}" y1="${sy(target)}" y2="${sy(target)}" stroke="${muted}" stroke-width="1.5" stroke-dasharray="5 4"/><text x="${W - R}" y="${sy(target) - 6}" text-anchor="end">Target ${fmt(target)}</text>`;
+  if (pts.length > 1) g += `<polyline fill="none" stroke="${accent}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="${pts.map(p => sx(p.x) + "," + sy(p.y)).join(" ")}"/>`;
+  g += pts.map((p, i) => `<circle cx="${sx(p.x)}" cy="${sy(p.y)}" r="${i === pts.length - 1 ? 5.5 : 4}" fill="${i === pts.length - 1 ? accent : "var(--surface)"}" stroke="${accent}" stroke-width="2"/>`).join("");
+  svg.innerHTML = g;
+  const last = pts[pts.length - 1], first = pts[0];
+  let change = "";
+  if (pts.length > 1) { const diff = last.y - first.y, better = M.lower ? diff < 0 : diff > 0; change = ` ${better ? "Up" : "Change"} ${M.fmt ? mmss(Math.abs(diff)) + (M.lower ? (diff < 0 ? " faster" : " slower") : "") : Math.abs(Math.round(diff * 10) / 10)} since your first test.`; if (M.lower && diff < 0) change = ` ${mmss(-diff)} faster than your first test.`; }
+  note.textContent = `Latest: ${fmt(last.y)} on ${niceDate(last.d)}.${change} ${tgtTxt}`;
+  // hover
+  const wrap = $("chartWrap"), tip = $("tip");
+  svg.onmousemove = ev => {
+    const r = svg.getBoundingClientRect(), mx = (ev.clientX - r.left) / r.width * W;
+    let best = pts[0]; pts.forEach(p => { if (Math.abs(sx(p.x) - mx) < Math.abs(sx(best.x) - mx)) best = p; });
+    tip.hidden = false; tip.textContent = `${niceDate(best.d)} · ${fmt(best.y)}`;
+    tip.style.left = (sx(best.x) / W * r.width) + "px"; tip.style.top = (sy(best.y) / H * r.height) + "px";
+  };
+  svg.onmouseleave = () => tip.hidden = true;
+}
+
+function renderProgress(startChanged) {
+  const start = P.profile.start;
+  $("startDate").value = start || "";
+  const pi = currentPhaseIdx();
+  if (start) {
+    const y = yearsSince(start);
+    $("yearsIn").textContent = y < 0 ? "Starts in the future" : y < 1 ? `${Math.max(0, Math.floor(y * 12))} months in` : `${y.toFixed(1)} years in`;
+    $("stPhase").textContent = PHASES[pi].name; $("stPhaseSub").textContent = `Phase ${pi + 1} · years ${PHASES[pi].from}–${PHASES[pi].to}`;
+    $("hereNote").hidden = false; $("hereNote").textContent = `You are here: ${y < 1 ? Math.max(0, Math.floor(y * 12)) + " months" : "year " + y.toFixed(1)} · ${PHASES[pi].name}`;
+    if (startChanged || !renderProgress._placed) { slider.value = Math.min(15, Math.max(0, Math.ceil(y))); renderRoadmap(); if (!store.get("lee.sessPhasePicked", false)) { $("selPhase").value = pi + 1; renderSession(); } renderProgress._placed = true; }
+  } else {
+    $("yearsIn").textContent = "Set the day you started"; $("stPhase").textContent = "—"; $("stPhaseSub").textContent = "Set your start date"; $("hereNote").hidden = true;
+  }
+  const sessions = allSessions(), goal = gymDays.length || 3;
+  const counts = {}; sessions.forEach(s => { const k = iso(weekStart(parseDate(s.date))); counts[k] = (counts[k] || 0) + 1; });
+  const thisWk = weekStart(new Date()), thisKey = iso(thisWk), n = counts[thisKey] || 0;
+  $("stWeek").innerHTML = `${n}<small> / ${goal}</small>`;
+  $("stWeekSub").textContent = n >= goal ? "Week done. Nice work." : `${goal - n} to go this week`;
+  $("stTotal").textContent = sessions.length;
+  let streak = 0; const w = new Date(thisWk); if ((counts[thisKey] || 0) < goal) w.setDate(w.getDate() - 7);
+  while ((counts[iso(w)] || 0) >= goal) { streak++; w.setDate(w.getDate() - 7); }
+  $("stStreak").textContent = `Full-week streak: ${streak} ${streak === 1 ? "week" : "weeks"}`;
+  // heat strip
+  const cells = []; const w0 = new Date(thisWk); w0.setDate(w0.getDate() - 7 * 25);
+  $("heatFrom").textContent = "Week of " + niceDate(iso(w0));
+  for (let i = 0; i < 26; i++) { const d = new Date(w0); d.setDate(d.getDate() + 7 * i); const k = iso(d), c = counts[k] || 0; cells.push(`<i data-n="${Math.min(3, c)}" class="${k === thisKey ? "now" : ""}" title="Week of ${niceDate(k)}: ${c} session${c === 1 ? "" : "s"}"></i>`); }
+  $("heat").innerHTML = cells.join("");
+  // history
+  $("histEmpty").hidden = sessions.length > 0;
+  $("histBody").innerHTML = sessions.slice(0, 12).map(s => `<tr><td>${esc(niceDate(s.date))}</td><td>${esc(DAYNAMES[s.day] || s.day)} · P${esc(s.phase)}</td><td class="num">${esc(s.done)}/${esc(s.total)}</td><td style="white-space:normal;min-width:120px">${esc(s.note || "")}</td><td><button class="linkbtn" type="button" data-del="${esc(s.key)}">Delete</button></td></tr>`).join("");
+  // tests table
+  const tests = Object.entries(P.tests).sort((a, b) => b[0].localeCompare(a[0]));
+  const v = x => x == null ? "—" : x;
+  $("testBody").innerHTML = tests.length ? tests.map(([d, t]) => `<tr><td>${esc(niceDate(d))}</td><td class="num">${v(t.bodyweight)}</td><td class="num">${v(t.pushups)}</td><td class="num">${v(t.pullups)}</td><td class="num">${t.plank == null ? "—" : mmss(t.plank)}</td><td class="num">${t.run2 == null ? "—" : mmss(t.run2)}</td><td class="num">${v(t.squat)}</td><td><button class="linkbtn" type="button" data-deltest="${esc(d)}">Delete</button></td></tr>`).join("") : `<tr><td colspan="8" class="fine" style="white-space:normal">No tests yet. Do your first one this week so you have a starting line.</td></tr>`;
+  drawChart();
+}
+
+function twoStepDelete(e, attr, fn) {
+  const b = e.target.closest(`button[${attr}]`); if (!b) return;
+  if (!b.classList.contains("sure")) { b.classList.add("sure"); b.textContent = "Confirm"; setTimeout(() => { if (b.isConnected) { b.classList.remove("sure"); b.textContent = "Delete"; } }, 3000); return; }
+  fn(b.getAttribute(attr));
+}
+$("histBody").addEventListener("click", e => twoStepDelete(e, "data-del", deleteSession));
+$("testBody").addEventListener("click", e => twoStepDelete(e, "data-deltest", d => { const t = { ...P.tests }; delete t[d]; P.tests = t; saveDoc("tests", testsBody()); renderProgress(); }));
+$("selPhase").addEventListener("change", () => store.set("lee.sessPhasePicked", true));
+
+/* 24 Hour Fitness equivalents: zone, what to use, setup, backup */
+const GYM = {
+  "Jump rope": { zone: "Turf", use: "Your own jump rope", how: "Most clubs don't hand out ropes, so bring one. Use the turf zone or an empty corner with a high ceiling.", alt: "Treadmill or bike, 3 min easy, or jumping jacks." },
+  "Dynamic stretches": { zone: "Stretch area", use: "Mats in the stretch area or turf", how: "Hold a squat-rack upright for balance during leg swings.", alt: "Any open floor space." },
+  "Warm-up sets": { zone: "Same station", use: "The bar or machine you're about to use", how: "Load about half your working weight for 5–8 reps.", alt: "" },
+  "Clean & press": { zone: "Free weights", use: "Dumbbell clean & press", how: "Grab a pair of dumbbells, pull them from knee height to your shoulders, then press overhead. Safer to learn than the barbell version.", alt: "<b>Barbell version</b> in a squat rack or on a platform with bumper plates once your form is solid. <b>Busy?</b> Shoulder press machine + a set of dumbbell squats." },
+  "Squat": { zone: "Racks", use: "Squat rack (power rack)", how: "Set the J-hooks at chest height and the safety bars just below your lowest squat depth.", alt: "<b>Smith machine squat</b> (feet slightly in front of the bar), or the <b>leg press</b> at 12–15 reps." },
+  "Pullover": { zone: "Free weights", use: "One dumbbell + flat bench", how: "Lie across the bench with your upper back on it, hold one end of the dumbbell with both hands.", alt: "<b>Cable straight-arm pulldown:</b> straight bar on a high pulley, arms straight, pull the bar down to your thighs." },
+  "Bench press": { zone: "Free weights", use: "Flat bench-press station", how: "Set the safety arms if the station has them, or ask someone to spot.", alt: "<b>Dumbbell bench press</b> on an adjustable bench, or the <b>chest press machine</b>." },
+  "Good morning": { zone: "Free weights", use: "45° back-extension bench", how: "Set the pad just below your hip bones. Hinge down with a flat back, rise until your body is straight. Hold a light plate to your chest when bodyweight gets easy.", alt: "<b>Dumbbell Romanian deadlift</b>, light, flat back. This is gentler on the spine than a barbell good morning." },
+  "Barbell curl": { zone: "Free weights", use: "EZ-curl bar", how: "The angled grip is easier on your wrists than a straight bar.", alt: "<b>Cable curl</b> with a straight bar on the low pulley, or dumbbell curls." },
+  "Dumbbell press": { zone: "Free weights", use: "Dumbbells + adjustable bench set upright", how: "Seated with back support to protect your lower back.", alt: "<b>Shoulder press machine</b>." },
+  "Trap-bar deadlift": { zone: "Free weights", use: "Trap bar (hex bar), if your club has one", how: "Load it on the platform or open floor.", alt: "<b>Dumbbell deadlift</b> (dumbbells at your sides) or the <b>leg press</b>." },
+  "Shadowboxing": { zone: "Turf", use: "Turf zone or a mirror wall", how: "Use the mirror to check your stance and guard. An empty group-fitness studio works well at quiet times.", alt: "Any open space with a few feet around you." },
+  "Heavy bag": { zone: "Turf", bag: true, use: "Heavy bag", how: "Wrap your hands and wear bag gloves. Bags are usually in or near the turf zone.", alt: "<b>Cable punches:</b> stand facing away from a cable tower, handle at chest height, and punch forward, alternating hands, with light weight. Or <b>battle ropes</b> for the same rounds." },
+  "Speed bag or focus mitts": { zone: "Turf", use: "Fast shadowboxing with light resistance", how: "Speed bags are rare at 24 Hour Fitness. Shadowbox at full speed, or loop a light band behind your back and punch against it.", alt: "<b>Medicine ball chest passes</b> against a wall, fast and explosive." },
+  "Easy run": { zone: "Cardio", use: "Treadmill at 1% incline", how: "1% incline roughly matches running outside. Pick a speed you could talk at.", alt: "<b>Elliptical, Arc trainer or bike</b> if your knees need a break." },
+  "Roadwork": { zone: "Cardio", use: "Treadmill at 1% incline", how: "Use the speed buttons to vary pace every few minutes. Finish the last quarter-mile faster.", alt: "<b>Rower</b> (about 20 min) or <b>bike</b>." },
+  "Slow kicks": { zone: "Turf", use: "Turf zone, holding a rack upright", how: "Hold the rack for balance and kick slowly into open space.", alt: "<b>Cable kicks:</b> ankle strap on the low pulley, very light weight, slow front and side kicks." },
+  "Stretching": { zone: "Stretch area", use: "Stretch mats and foam rollers", how: "Put a heel on a flat bench for hamstring stretches.", alt: "" },
+  "Kicks on the bag": { zone: "Turf", bag: true, use: "Heavy bag", how: "Mark your distance on the turf so you land kicks with the right part of the foot.", alt: "<b>Cable kicks</b> with an ankle strap on the low pulley, plus the <b>hip abductor machine</b> for side-kick strength." },
+  "Intervals": { zone: "Cardio", use: "Treadmill", how: "Use the preset speed buttons: fast for 400 m (a quarter mile), easy for 400 m.", alt: "<b>Rower</b> or <b>bike</b>: 1 min hard, 1 min easy." },
+  "Lee-style circuit": { zone: "Turf", use: "Turf zone + pull-up station", how: "Squat jumps and push-ups on the turf, pull-ups on the pull-up bar, then battle ropes or med-ball slams in place of the bag sprint.", alt: "Use the <b>assisted pull-up machine</b> if you can't do full pull-ups yet." },
+  "Plyometrics": { zone: "Turf", use: "Plyo boxes on the turf", how: "Start with the lowest box. Step down, don't jump down.", alt: "<b>Broad jumps</b> across the turf and <b>squat jumps</b>. Never jump onto a weight bench." },
+  "Isometric holds in the rack": { zone: "Racks", use: "Squat rack with safety bars", how: "Set the safety bars at the height you want, put an empty bar on them, and push up into them.", alt: "<b>Smith machine</b> with the bar locked on its hooks: push or pull against the locked bar." },
+  "Kicks and stretching": { zone: "Turf", use: "Turf zone or heavy bag", how: "Kick in open space, holding a rack for balance at first, then finish on the stretch mats.", alt: "<b>Cable kicks</b> with an ankle strap." },
+  "Partner drills or sparring": { zone: "Classes", use: "Group fitness classes or a partner on the turf", how: "Some clubs run kickboxing-style classes; check your club's schedule. For real sparring, a local martial arts school is the best fit.", alt: "Bring focus mitts and train with a friend on the turf." },
+  "Full kicking practice": { zone: "Turf", use: "Turf zone or heavy bag", how: "Work both sides, holding a rack for balance on the slow reps.", alt: "<b>Cable kicks</b> with an ankle strap." },
+  "Mobility and stretching": { zone: "Stretch area", use: "Mats, foam rollers, a PVC pipe or body bar", how: "Use the pipe or bar for shoulder circles.", alt: "A resistance band works too." },
+  "Speed bursts": { zone: "Turf", bag: true, use: "Heavy bag", how: "20 seconds as fast as you can, then rest.", alt: "<b>Battle ropes</b> or <b>light cable punches</b>, 20 seconds all-out." },
+  "Easy aerobic": { zone: "Cardio", use: "Bike, rower, elliptical or Arc trainer", how: "Pick whichever is easiest on your joints that day.", alt: "Treadmill incline walk." },
+  "Surges": { zone: "Cardio", use: "Same machine as your easy aerobic work", how: "Bump the speed or resistance up for 30 seconds.", alt: "" },
+  "Mobility and balance": { zone: "Stretch area", use: "BOSU ball + dumbbells", how: "Single-leg stands on the flat side of the BOSU, and single-leg dumbbell Romanian deadlifts.", alt: "Stand on one leg on the floor, eyes closed." },
+  "Leg raises": { zone: "Stretch area", use: "Mat or flat bench", how: "On a bench, grip behind your head for stability.", alt: "<b>Knee-raise station</b> (captain's chair)." },
+  "Sit-up twists": { zone: "Free weights", use: "Decline sit-up bench", how: "Hook your feet under the pads and set a low incline to start.", alt: "Mat with feet under a dumbbell." },
+  "Waist twists": { zone: "Stretch area", use: "PVC pipe or empty body bar", how: "Rest it across your shoulders like the broomstick in Lee's routine.", alt: "<b>Cable woodchops</b> (light) or the <b>rotary torso machine</b>." },
+  "Wrist curls": { zone: "Free weights", use: "Light dumbbells + flat bench", how: "Rest your forearms on the bench, wrists just off the edge.", alt: "Cable wrist curls with a straight bar on the low pulley." },
+  "Wrist roller": { zone: "Free weights", use: "Your own wrist roller + a weight plate", how: "Few clubs have one. A cheap roller fits in your bag; hook a 5–10 lb plate on it.", alt: "<b>Plate pinches</b> (pinch two plates smooth-side out) and <b>farmer's holds</b> with heavy dumbbells." },
+  "Reverse curls": { zone: "Free weights", use: "EZ-curl bar", how: "Palms facing down.", alt: "Straight bar on the low cable pulley." },
+  "Dragon flag progression": { zone: "Free weights", use: "Flat bench", how: "Grip the bench behind your head. Make sure the bench is stable and not near the edge of a platform.", alt: "Start with tucked-knee versions on the bench." },
+  "Hanging leg raises": { zone: "Free weights", use: "Knee-raise station (captain's chair)", how: "Forearms on the pads and back against the backrest removes the swing.", alt: "Pull-up bar, or the assisted pull-up machine's bar." },
+  "Lee's ab circuit": { zone: "Stretch area", use: "Mat + decline bench + PVC pipe", how: "Set everything up next to each other so you can move straight from one exercise to the next.", alt: "" },
+  "Forearms": { zone: "Free weights", use: "Wrist roller or dumbbells", how: "Wrist roller if you brought one, then EZ-bar reverse curls.", alt: "Farmer's holds with heavy dumbbells." },
+  "Plank + side planks": { zone: "Stretch area", use: "Mat", how: "", alt: "" },
+  "Grip holds": { zone: "Free weights", use: "Pull-up bar or heavy dumbbells", how: "Dead hang from the bar, or hold the heaviest dumbbells you can grip at your sides.", alt: "" }
+};
+function gymEntry(name) { return GYM[name] || GYM[ALIAS[name]]; }
+$("gPhase").innerHTML = $("selPhase").innerHTML;
+$("gHasBag").checked = store.get("lee.hasBag", false);
+$("gDate").value = today();
+function syncFromGym() { $("selPhase").value = $("gPhase").value; $("selDay").value = $("gDay").value; store.set("lee.sessPhasePicked", true); renderSession(); }
+$("gPhase").addEventListener("change", syncFromGym);
+$("gDay").addEventListener("change", syncFromGym);
+$("gHasBag").addEventListener("change", () => { store.set("lee.hasBag", $("gHasBag").checked); renderGym(); });
+$("gLogBtn").addEventListener("click", () => { $("sessDate").value = $("gDate").value || today(); $("sessNote").value = $("gNote").value; $("gNote").value = ""; $("logSessBtn").click(); });
+function renderGym() {
+  const p = PHASES[+$("selPhase").value - 1], d = $("selDay").value, hasBag = $("gHasBag").checked;
+  $("gPhase").value = p.id; $("gDay").value = d;
+  const lifts = LIFTS.map(([n, t]) => (p.id === 5 && LIFTS_P5[n]) ? [...LIFTS_P5[n], p.lift.split(";")[0]] : [n, t, p.lift.split(";")[0]]);
+  if (p.id === 3) lifts[0][2] = "5 × 3, fast";
+  const checks = new Set(store.get(sessKey(), []));
+  let idx = 0;
+  $("sumG").innerHTML = sumHTML(sessionGroups(p, d, lifts), p);
+  $("gymBody").innerHTML = sessionGroups(p, d, lifts).map(([title, time, items]) => `
+    <div class="block"><h3>${esc(title)} <small>${groupTimeLabel(items, p)}</small></h3>
+    ${items.map(([n, , rx]) => { const i = idx++, id = "gx" + i, on = checks.has("ex" + i), g = gymEntry(n) || {};
+      const useBackup = g.bag && !hasBag;
+      const main = useBackup ? g.alt : `<span class="use">${esc(g.use || n)}</span>`;
+      const setup = useBackup ? "" : (g.how ? `<div>${esc(g.how)}</div>` : "");
+      const backup = !useBackup && g.alt ? `<div class="alt"><b>Backup:</b> ${g.alt}</div>` : "";
+      return `<div class="ex gx${on ? " done" : ""}"><input type="checkbox" id="${id}" data-i="${i}" ${on ? "checked" : ""}><label class="exmain" for="${id}"><div class="nm">${esc(n)}</div><div class="eq"><div>${g.zone ? `<span class="zone">${esc(g.zone)}</span>` : ""}${main}</div>${setup}${backup}</div></label>${rxHTML(n, rx, p)}${explainHTML(n)}</div>`; }).join("")}
+    </div>`).join("");
+  $("gymBody").querySelectorAll("input").forEach(inp => inp.addEventListener("change", () => {
+    const s = new Set(store.get(sessKey(), [])), k = "ex" + inp.dataset.i;
+    inp.checked ? s.add(k) : s.delete(k);
+    store.set(sessKey(), [...s]); renderSession();
+  }));
+  const all = $("gymBody").querySelectorAll("input"), done = [...all].filter(i => i.checked).length;
+  $("gProgTxt").textContent = `${done} / ${all.length}`;
+  $("gProgBar").style.width = (all.length ? done / all.length * 100 : 0) + "%";
+}
+window.__gymReady = true;
+
+/* Quotes */
+const QUOTES = [
+  ["Absorb what is useful, discard what is useless, add what is specifically your own.", "Bruce Lee"],
+  ["I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.", "Bruce Lee"],
+  ["Be water, my friend.", "Bruce Lee"],
+  ["Knowing is not enough, we must apply. Willing is not enough, we must do.", "Bruce Lee"],
+  ["There are no limits. There are only plateaus, and you must not stay there, you must go beyond them.", "Bruce Lee"],
+  ["Simplicity is the key to brilliance.", "Bruce Lee"],
+  ["Do not pray for an easy life, pray for the strength to endure a difficult one.", "Bruce Lee"],
+  ["Mistakes are always forgivable, if one has the courage to admit them.", "Bruce Lee"],
+  ["If you spend too much time thinking about a thing, you'll never get it done.", "Bruce Lee"]
+];
+let qi = Math.floor(Math.random() * QUOTES.length), qTimer = null;
+const reduceMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+function showQuote(i) {
+  qi = (i + QUOTES.length) % QUOTES.length;
+  const box = $("quote"), set = () => { $("qText").textContent = QUOTES[qi][0]; $("qCite").textContent = QUOTES[qi][1]; box.classList.remove("fade"); };
+  if (reduceMotion) return set();
+  box.classList.add("fade"); setTimeout(set, 250);
+}
+function startQuotes() { clearInterval(qTimer); if (!reduceMotion) qTimer = setInterval(() => showQuote(qi + 1), 15000); }
+$("qNext").addEventListener("click", () => { showQuote(qi + 1); startQuotes(); });
+$("qPrev").addEventListener("click", () => { showQuote(qi - 1); startQuotes(); });
+$("qText").textContent = QUOTES[qi][0];
+startQuotes();
+
+/* Boot */
+slider.value = store.get("lee.year", 5);
+renderRoadmap(); renderWeek(); renderSession(); resetTimer();
+initProgress();
+const h = (location.hash || "").slice(1);
+showTab(["roadmap", "week", "session", "gym", "progress", "timer"].includes(h) ? h : store.get("lee.tab", "roadmap"));
+</script>
+
+</body>
+</html>
