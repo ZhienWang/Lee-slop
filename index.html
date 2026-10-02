@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="A Bruce Lee–inspired 15-year training plan for three gym days a week.">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#eceee9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101613" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Lee Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -193,6 +202,19 @@ footer { margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--line);
 .langbar button { font: 600 13px/1 var(--body); background: none; border: 0; color: var(--muted); padding: 8px 12px; cursor: pointer; }
 .langbar button + button { border-left: 1.5px solid var(--line); }
 .langbar button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+/* add to phone */
+.langbar { gap: 10px; align-items: center; }
+.langbar .installbtn { margin-right: auto; display: inline-flex; align-items: center; gap: 7px; font: 600 13px/1 var(--body); background: var(--seal); color: #fff8f2; border: 0; border-radius: 8px; padding: 9px 13px; cursor: pointer; }
+.installbtn svg { width: 15px; height: 15px; flex: none; }
+dialog.install { border: 1.5px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); padding: 22px; width: min(420px, calc(100vw - 32px)); }
+dialog.install::backdrop { background: rgba(10, 14, 12, .55); }
+dialog.install h3 { font-size: 28px; margin-bottom: 10px; }
+dialog.install ol { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 6px; }
+dialog.install .qr { display: grid; place-items: center; margin: 14px auto 6px; width: 200px; height: 200px; background: #fff; border-radius: 8px; padding: 8px; }
+dialog.install .qr img, dialog.install .qr svg { width: 100%; height: 100%; image-rendering: pixelated; }
+dialog.install .url { font: 500 12.5px/1.4 var(--mono); color: var(--muted); text-align: center; word-break: break-all; }
+dialog.install .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; flex-wrap: wrap; }
+dialog.install .note { font-size: 13px; color: var(--muted); margin-top: 10px; }
 :root[lang="zh-Hans"] { --display: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; --body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
 :root[lang="zh-Hant"] { --display: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; --body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; }
 :root[lang^="zh"] h1, :root[lang^="zh"] h2, :root[lang^="zh"] h3 { letter-spacing: 0; }
@@ -271,11 +293,22 @@ table.log td.num { font-family: var(--mono); font-variant-numeric: tabular-nums;
 </style>
 
 <div class="wrap">
-  <div class="langbar" id="langbar" role="group" aria-label="Language"><div class="seg">
+  <div class="langbar" id="langbar">
+  <button type="button" class="installbtn" id="installBtn" hidden><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="1.5" width="8" height="13" rx="1.6"/><path d="M8 5v5M5.8 7.8 8 10l2.2-2.2"/></svg><span>Add to phone</span></button>
+  <div class="seg" role="group" aria-label="Language">
     <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
     <button type="button" data-lang="hans" aria-pressed="false" lang="zh-Hans">简体</button>
     <button type="button" data-lang="hant" aria-pressed="false" lang="zh-Hant">繁體</button>
   </div></div>
+  <dialog class="install" id="installDlg" aria-labelledby="installTitle">
+    <h3 id="installTitle">Add to your phone</h3>
+    <div id="installBody"></div>
+    <div class="row">
+      <button type="button" class="btn ghost" id="installCopy" hidden>Copy link</button>
+      <button type="button" class="btn red" id="installGo" hidden>Install</button>
+      <button type="button" class="btn ghost" id="installClose">Close</button>
+    </div>
+  </dialog>
   <section class="quote" id="quote" aria-label="Bruce Lee quote">
     <blockquote>
       <div class="qt" id="qText" aria-live="polite">Absorb what is useful, discard what is useless, add what is specifically your own.</div>
@@ -1345,7 +1378,7 @@ function setLang(l) {
   LANG = l; store.set("lee.lang", l);
   document.documentElement.lang = l === "hans" ? "zh-Hans" : l === "hant" ? "zh-Hant" : "en";
   if (l !== "en") loadCJKFont();
-  document.querySelectorAll("#langbar button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
+  document.querySelectorAll("#langbar button[data-lang]").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
   i18nObs.disconnect();
   // re-render the parts that format dates, then translate everything
   try { renderProgress(); } catch (e) {}
@@ -1361,6 +1394,77 @@ $("chibi").addEventListener("click", () => {
   const c = $("chibi"); if (c.classList.contains("kick")) return;
   $("chibiSay").textContent = CHIBI_SAYS[chibiN++ % CHIBI_SAYS.length];
   c.classList.add("kick"); setTimeout(() => c.classList.remove("kick"), 650);
+});
+
+/* Add to phone (PWA) */
+if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("/sw.js").catch(() => {});
+let deferredInstall = null;
+const isStandalone = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const isPhone = isIOS || /Android|Mobi/i.test(navigator.userAgent);
+const installBtn = $("installBtn"), installDlg = $("installDlg"), installBody = $("installBody");
+const SHARE_ICON = '<svg viewBox="0 0 16 16" width="14" height="14" style="vertical-align:-2px" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5v8.5M5.2 4.2 8 1.5l2.8 2.7M4.5 7H3.5v7.5h9V7h-1"/></svg>';
+function showInstallBtn() { installBtn.hidden = isStandalone(); }
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredInstall = e; showInstallBtn(); });
+window.addEventListener("appinstalled", () => { deferredInstall = null; installBtn.hidden = true; if (installDlg.open) installDlg.close(); });
+showInstallBtn();
+function li(html) { const el = document.createElement("li"); el.innerHTML = html; return el; }
+function para(text, cls) { const p = document.createElement("p"); p.textContent = text; if (cls) p.className = cls; return p; }
+function loadQR() {
+  if (window.qrcode) return Promise.resolve(window.qrcode);
+  return new Promise((ok, no) => { const s = document.createElement("script"); s.src = "/vendor/qrcode.js"; s.onload = () => ok(window.qrcode); s.onerror = no; document.head.appendChild(s); });
+}
+function openInstall() {
+  const url = location.origin + "/";
+  installBody.textContent = "";
+  $("installGo").hidden = !deferredInstall;
+  $("installCopy").hidden = isPhone;
+  if (isIOS) {
+    installBody.append(para("Open this page in Safari, then:"));
+    const ol = document.createElement("ol");
+    ol.append(li("<span>Tap the</span> <b>Share</b> " + SHARE_ICON + " <span>button.</span>"),
+              li("<span>Scroll down and tap</span> <b>Add to Home Screen</b><span>.</span>"),
+              li("<span>Tap</span> <b>Add</b><span>. It opens full-screen like an app.</span>"));
+    installBody.append(ol);
+  } else if (isPhone) {
+    installBody.append(para(deferredInstall ? "Tap Install to put Lee Method on your home screen. It opens full-screen and works at the gym without signal."
+      : "Open the browser menu (⋮) and tap Add to Home screen or Install app."));
+  } else {
+    installBody.append(para("Scan with your phone camera to open the page, then add it to your home screen from there."));
+    const q = document.createElement("div"); q.className = "qr"; installBody.append(q);
+    loadQR().then(qr => { const c = qr(0, "M"); c.addData(url); c.make(); q.innerHTML = c.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); }).catch(() => { q.hidden = true; });
+    const u = para(url, "url"); u.setAttribute("data-no-i18n", ""); installBody.append(u);
+    if (deferredInstall) installBody.append(para("Or install it on this computer with the Install button."));
+  }
+  installBody.append(para("Your logged progress is stored on each device separately.", "note"));
+  installDlg.showModal();
+}
+installBtn.addEventListener("click", openInstall);
+$("installClose").addEventListener("click", () => installDlg.close());
+installDlg.addEventListener("click", e => { if (e.target === installDlg) installDlg.close(); });
+$("installGo").addEventListener("click", async () => { if (!deferredInstall) return; deferredInstall.prompt(); await deferredInstall.userChoice.catch(() => {}); deferredInstall = null; installDlg.close(); });
+$("installCopy").addEventListener("click", () => { navigator.clipboard && navigator.clipboard.writeText(location.origin + "/").then(() => { $("installCopy").textContent = tr("Copied"); setTimeout(() => $("installCopy").textContent = tr("Copy link"), 1500); }).catch(() => {}); });
+Object.assign(I18N.hans, {
+  "Add to phone": "添加到手机", "Add to your phone": "添加到你的手机", "Copy link": "复制链接", "Copied": "已复制", "Install": "安装", "Close": "关闭",
+  "Open this page in Safari, then:": "用 Safari 打开此页面，然后：", "Tap the": "点按", "Share": "分享", "button.": "按钮。",
+  "Scroll down and tap": "向下滑动并点按", "Add to Home Screen": "添加到主屏幕", ".": "。", "Tap": "点按", "Add": "添加",
+  ". It opens full-screen like an app.": "。之后它会像 App 一样全屏打开。",
+  "Tap Install to put Lee Method on your home screen. It opens full-screen and works at the gym without signal.": "点按“安装”把 Lee Method 放到主屏幕。它会全屏打开，在健身房没信号也能用。",
+  "Open the browser menu (⋮) and tap Add to Home screen or Install app.": "打开浏览器菜单（⋮），点按“添加到主屏幕”或“安装应用”。",
+  "Scan with your phone camera to open the page, then add it to your home screen from there.": "用手机相机扫码打开页面，然后在手机上把它添加到主屏幕。",
+  "Or install it on this computer with the Install button.": "也可以用“安装”按钮装到这台电脑上。",
+  "Your logged progress is stored on each device separately.": "记录的进度分别保存在每台设备上。"
+});
+Object.assign(I18N.hant, {
+  "Add to phone": "加到手機", "Add to your phone": "加到你的手機", "Copy link": "複製連結", "Copied": "已複製", "Install": "安裝", "Close": "關閉",
+  "Open this page in Safari, then:": "用 Safari 開啟此頁面，然後：", "Tap the": "點一下", "Share": "分享", "button.": "按鈕。",
+  "Scroll down and tap": "向下捲動並點一下", "Add to Home Screen": "加入主畫面", ".": "。", "Tap": "點一下", "Add": "新增",
+  ". It opens full-screen like an app.": "。之後它會像 App 一樣全螢幕開啟。",
+  "Tap Install to put Lee Method on your home screen. It opens full-screen and works at the gym without signal.": "點一下「安裝」把 Lee Method 放到主畫面。它會全螢幕開啟，在健身房沒訊號也能用。",
+  "Open the browser menu (⋮) and tap Add to Home screen or Install app.": "開啟瀏覽器選單（⋮），點一下「加到主畫面」或「安裝應用程式」。",
+  "Scan with your phone camera to open the page, then add it to your home screen from there.": "用手機相機掃碼開啟頁面，再在手機上把它加到主畫面。",
+  "Or install it on this computer with the Install button.": "也可以用「安裝」按鈕裝到這台電腦上。",
+  "Your logged progress is stored on each device separately.": "記錄的進度分別儲存在每台裝置上。"
 });
 
 /* Boot */

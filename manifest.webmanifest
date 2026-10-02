@@ -1,0 +1,16 @@
+{
+  "name": "Lee Method Roadmap",
+  "short_name": "Lee Method",
+  "description": "A Bruce Lee–inspired 15-year training plan for three gym days a week.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eceee9",
+  "theme_color": "#16201c",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
