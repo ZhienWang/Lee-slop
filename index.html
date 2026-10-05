@@ -202,6 +202,21 @@ footer { margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--line);
 .langbar button { font: 600 13px/1 var(--body); background: none; border: 0; color: var(--muted); padding: 8px 12px; cursor: pointer; }
 .langbar button + button { border-left: 1.5px solid var(--line); }
 .langbar button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+/* floating rest timer */
+body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+.restfab { position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 50; display: flex; align-items: stretch; border-radius: 999px; overflow: hidden; background: var(--ink); color: var(--bg); box-shadow: 0 6px 20px rgba(0,0,0,.22); }
+.restfab button { background: none; border: 0; color: inherit; cursor: pointer; font: 600 13px/1 var(--body); padding: 0 12px; min-height: 48px; }
+.restfab .adj { opacity: .75; font-family: var(--mono); }
+.restfab .adj:hover { opacity: 1; }
+.restfab .main { display: inline-flex; align-items: center; gap: 8px; padding: 0 14px; border-inline: 1px solid rgba(255,255,255,.14); position: relative; }
+.restfab .main .lbl { font: 600 11px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; opacity: .8; }
+.restfab .main .tm { font: 900 24px/1 var(--display); font-variant-numeric: tabular-nums; min-width: 3.1ch; text-align: left; }
+.restfab .main svg { width: 12px; height: 12px; }
+.restfab .bar { position: absolute; left: 0; bottom: 0; height: 3px; width: calc(var(--p, 0) * 100%); background: var(--jade); }
+.restfab.on { background: var(--jade); color: #fff; }
+.restfab.on .bar { background: rgba(255,255,255,.7); }
+.restfab.done { background: var(--seal); color: #fff8f2; animation: restpulse .5s ease-in-out 3; }
+@keyframes restpulse { 50% { transform: scale(1.06); } }
 /* add to phone */
 .langbar { gap: 10px; align-items: center; }
 .langbar .installbtn { margin-right: auto; display: inline-flex; align-items: center; gap: 7px; font: 600 13px/1 var(--body); background: var(--seal); color: #fff8f2; border: 0; border-radius: 8px; padding: 9px 13px; cursor: pointer; }
@@ -615,6 +630,12 @@ table.log td.num { font-family: var(--mono); font-variant-numeric: tabular-nums;
   <footer>
     <p class="fine">Built from Lee's published training notes (collected in John Little's <i>The Art of Expressing the Human Body</i>). This is a general plan, not medical advice. Check with a doctor before starting if you have heart, joint or back problems, and learn the barbell lifts with light weight or a coach first. Striking skill grows fastest with a real instructor and partners, so consider adding a martial arts class once you're past year one.</p>
   </footer>
+</div>
+
+<div class="restfab" id="restFab" role="group" aria-label="Rest timer">
+  <button type="button" class="adj" id="rfMinus" aria-label="15 seconds less">−15</button>
+  <button type="button" class="main" id="rfMain" aria-label="Start rest timer"><svg id="rfIcon" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.5v9l8-4.5z" fill="currentColor"/></svg><span class="lbl" id="rfLbl">Rest</span><span class="tm" id="rfTime" data-no-i18n>1:30</span><span class="bar" aria-hidden="true"></span></button>
+  <button type="button" class="adj" id="rfPlus" aria-label="15 seconds more">+15</button>
 </div>
 
 <script>
@@ -1395,6 +1416,44 @@ $("chibi").addEventListener("click", () => {
   $("chibiSay").textContent = CHIBI_SAYS[chibiN++ % CHIBI_SAYS.length];
   c.classList.add("kick"); setTimeout(() => c.classList.remove("kick"), 650);
 });
+
+/* Floating rest timer: defaults to 1:30, remembers your last choice, keeps time with the screen off */
+const RF = { secs: Math.min(600, Math.max(15, +store.get("lee.restSecs", 90) || 90)), end: 0, total: 0, iv: null, doneT: null };
+const PLAY = '<path d="M2.5 1.5v9l8-4.5z" fill="currentColor"/>', STOP = '<rect x="2" y="2" width="8" height="8" rx="1" fill="currentColor"/>';
+function rfDraw() {
+  const fab = $("restFab"), on = RF.end > 0;
+  const left = on ? Math.max(0, Math.ceil((RF.end - Date.now()) / 1000)) : RF.secs;
+  $("rfTime").textContent = fmt(left);
+  fab.classList.toggle("on", on);
+  fab.style.setProperty("--p", on ? (1 - left / RF.total).toFixed(3) : 0);
+  $("rfIcon").innerHTML = on ? STOP : PLAY;
+  $("rfMain").setAttribute("aria-label", on ? "Stop rest timer" : "Start rest timer");
+  return left;
+}
+function rfTick() { if (rfDraw() <= 0) rfFinish(); }
+function rfStart() {
+  try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); audio.resume(); } catch (e) {}   // unlock sound on iPhone
+  clearTimeout(RF.doneT); $("restFab").classList.remove("done"); $("rfLbl").textContent = "Rest";
+  RF.total = RF.secs; RF.end = Date.now() + RF.secs * 1000;
+  clearInterval(RF.iv); RF.iv = setInterval(rfTick, 250); rfDraw();
+}
+function rfStop() { clearInterval(RF.iv); RF.end = 0; rfDraw(); }
+function rfFinish() {
+  rfStop(); bell(3); try { navigator.vibrate && navigator.vibrate([300, 150, 300]); } catch (e) {}
+  const fab = $("restFab"); fab.classList.add("done"); $("rfLbl").textContent = "Go!";
+  RF.doneT = setTimeout(() => { fab.classList.remove("done"); $("rfLbl").textContent = "Rest"; }, 4000);
+}
+function rfAdjust(d) {
+  if (RF.end) { RF.end = Math.max(Date.now() + 1000, RF.end + d * 1000); RF.total = Math.max(RF.total + d, 1); rfDraw(); return; }
+  RF.secs = Math.min(600, Math.max(15, RF.secs + d)); store.set("lee.restSecs", RF.secs); rfDraw();
+}
+$("rfMain").addEventListener("click", () => RF.end ? rfStop() : rfStart());
+$("rfMinus").addEventListener("click", () => rfAdjust(-15));
+$("rfPlus").addEventListener("click", () => rfAdjust(15));
+document.addEventListener("visibilitychange", () => { if (!document.hidden && RF.end) rfTick(); });
+rfDraw();
+Object.assign(I18N.hans, { "Rest timer": "休息计时器", "Start rest timer": "开始休息计时", "Stop rest timer": "停止休息计时", "15 seconds less": "减少 15 秒", "15 seconds more": "增加 15 秒", "Go!": "开练！" });
+Object.assign(I18N.hant, { "Rest timer": "休息計時器", "Start rest timer": "開始休息計時", "Stop rest timer": "停止休息計時", "15 seconds less": "減少 15 秒", "15 seconds more": "增加 15 秒", "Go!": "開練！" });
 
 /* Add to phone (PWA) */
 if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("/sw.js").catch(() => {});

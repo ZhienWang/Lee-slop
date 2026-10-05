@@ -1,6 +1,6 @@
 // Offline support: pages load from the network when online (so updates show up),
 // and fall back to the saved copy at the gym with no signal.
-const CACHE = "lee-v1";
+const CACHE = "lee-v2";
 const CORE = ["/", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/apple-touch-icon.png", "/vendor/qrcode.js"];
 
 self.addEventListener("install", e => {
